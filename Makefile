@@ -28,6 +28,12 @@ SRCS = \
 	$(SRC_DIR)/parsing/parse_textures.c \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
+	$(SRC_DIR)/engine/init_game.c \
+	$(SRC_DIR)/engine/textures.c \
+	$(SRC_DIR)/engine/raycasting.c \
+	$(SRC_DIR)/engine/rendering.c \
+	$(SRC_DIR)/engine/input.c \
+	$(SRC_DIR)/engine/math_utils.c \
 	$(SRC_DIR)/utils/error.c \
 	$(SRC_DIR)/utils/utils.c \
 	$(SRC_DIR)/utils/free.c

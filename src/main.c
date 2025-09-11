@@ -120,6 +120,20 @@ int	main(int argc, char **argv)
 	
 	print_parsing_summary(&data);
 	
+	// Initialize and start the 3D engine
+	if (!init_game(&data))
+	{
+		printf("❌ Failed to initialize 3D engine!\n");
+		free_data(&data);
+		exit(EXIT_FAILURE);
+	}
+	
+	// Start the game loop
+	mlx_loop_hook(data.mlx, game_loop, &data);
+	mlx_loop(data.mlx);
+	
+	// Cleanup
+	cleanup_game(&data);
 	free_data(&data);
 	return (EXIT_SUCCESS);
 }

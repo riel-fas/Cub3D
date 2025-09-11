@@ -25,6 +25,21 @@
 # define TRUE 1
 # define FALSE 0
 
+/* Window settings */
+# define WINDOW_WIDTH 1024
+# define WINDOW_HEIGHT 768
+# define WINDOW_TITLE "Cub3D - 3D Raycasting Engine"
+
+/* Game settings */
+# define FOV 1.047198		// 60 degrees in radians (PI/3)
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.03
+# define TEXTURE_SIZE 64
+
+/* Math constants */
+# define PI 3.14159265359
+# define TWO_PI 6.28318530718
+
 /* Error messages */
 # define ERR_ARGS "Error\nUsage: ./cub3D <map.cub>\n"
 # define ERR_FILE "Error\nCannot open file\n"
@@ -67,13 +82,56 @@ typedef struct s_color
 	int	r;
 	int	g;
 	int	b;
+	int	hex;		// Hex representation for MLX
 }	t_color;
+
+/* Vector structure for raycasting */
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
+/* Ray structure */
+typedef struct s_ray
+{
+	t_vector	pos;		// Ray position
+	t_vector	dir;		// Ray direction
+	t_vector	delta_dist;	// Distance between x/y intersections
+	t_vector	side_dist;	// Distance to next x/y intersection
+	t_vector	step;		// Step direction (-1 or 1)
+	int			map_x;		// Current map position
+	int			map_y;
+	int			hit;		// Wall hit flag
+	int			side;		// Which side was hit (0=x, 1=y)
+	double		wall_dist;	// Distance to wall
+	int			line_height;// Height of wall line to draw
+	int			draw_start;	// Start pixel of wall
+	int			draw_end;	// End pixel of wall
+	int			tex_num;	// Texture number (0-3)
+	double		wall_x;		// Exact wall hit position
+	int			tex_x;		// Texture x coordinate
+}	t_ray;
+
+/* Texture structure */
+typedef struct s_texture
+{
+	mlx_texture_t	*mlx_texture;
+	int				width;
+	int				height;
+	uint32_t		**pixels;	// 2D array of pixel data
+}	t_texture;
 
 /* Game data structure */
 typedef struct s_data
 {
+	/* MLX */
+	mlx_t		*mlx;
+	mlx_image_t	*image;
+	
 	/* Textures */
 	char		*texture_paths[4];	// NO, SO, WE, EA
+	t_texture	textures[4];		// Loaded texture data
 	t_color		floor_color;
 	t_color		ceiling_color;
 	
@@ -83,10 +141,16 @@ typedef struct s_data
 	int			map_height;
 	
 	/* Player */
-	float		player_x;
-	float		player_y;
+	double		player_x;
+	double		player_y;
 	char		player_dir;		// N, S, E, W
-	float		player_angle;	// Angle in radians
+	double		player_angle;	// Angle in radians
+	t_vector	player_pos;		// Player position vector
+	t_vector	player_dir_vec;	// Player direction vector
+	t_vector	camera_plane;	// Camera plane vector
+	
+	/* Game state */
+	int			game_running;
 	
 	/* Parsing flags */
 	int			textures_parsed[4];	// Individual texture flags
@@ -109,6 +173,53 @@ typedef struct s_data
 /* Main */
 int		main(int argc, char **argv);
 int		validate_args(int argc, char **argv);
+
+/* Game initialization */
+int		init_game(t_data *data);
+int		init_mlx(t_data *data);
+int		init_player(t_data *data);
+void	setup_player_vectors(t_data *data);
+
+/* Texture loading */
+int		load_textures(t_data *data);
+int		load_single_texture(t_data *data, int index);
+void	convert_texture_pixels(t_texture *texture);
+uint32_t get_pixel_color(t_texture *texture, int x, int y);
+
+/* Game loop */
+void	game_loop(void *param);
+void	update_game(t_data *data);
+void	render_frame(t_data *data);
+
+/* Raycasting */
+void	cast_rays(t_data *data);
+void	cast_single_ray(t_data *data, int x);
+void	init_ray(t_data *data, t_ray *ray, int x);
+void	calculate_step_and_side_dist(t_data *data, t_ray *ray);
+void	perform_dda(t_data *data, t_ray *ray);
+void	calculate_wall_distance(t_ray *ray);
+void	calculate_draw_bounds(t_ray *ray);
+
+/* Rendering */
+void	draw_vertical_line(t_data *data, int x, t_ray *ray);
+void	draw_textured_wall(t_data *data, int x, t_ray *ray);
+void	draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
+uint32_t get_texture_pixel(t_data *data, t_ray *ray, int y);
+
+/* Input handling */
+void	handle_input(mlx_key_data_t keydata, void *param);
+void	handle_mouse(double xpos, double ypos, void *param);
+void	move_player(t_data *data, double move_x, double move_y);
+void	rotate_player(t_data *data, double angle);
+
+/* Math utilities */
+double	normalize_angle(double angle);
+double	distance(double x1, double y1, double x2, double y2);
+int		rgb_to_hex(int r, int g, int b);
+
+/* Cleanup */
+void	cleanup_game(t_data *data);
+void	cleanup_textures(t_data *data);
 
 /* Parsing */
 int		parse_file(t_data *data, char *filename);
