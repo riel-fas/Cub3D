@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include "MLX42/MLX42.h"
+# include <MLX42.h>
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -32,8 +32,8 @@
 
 /* Game settings */
 # define FOV 1.047198		// 60 degrees in radians (PI/3)
-# define MOVE_SPEED 0.05
-# define ROTATE_SPEED 0.03
+# define MOVE_SPEED 1
+# define ROTATE_SPEED 0.5
 # define TEXTURE_SIZE 64
 
 /* Math constants */

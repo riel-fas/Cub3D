@@ -7,44 +7,69 @@ BLUE	= \033[0;34m
 PURPLE	= \033[0;35m
 NC		= \033[0m # No Color
 
-NAME			=	cub3D
-CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -g
+NAME					= cub3D
+BONUS					= cub3D_bonus
+
+CC						= cc
+CFLAGS					= -Wall -Wextra -Werror -g
 
 # MLX42 Configuration
-MLX_DIR			=	$(HOME)/MLX42
-MLX_FLAGS		=	-I$(MLX_DIR)/include
-MLX_LIB			=	-L$(MLX_DIR)/build -lmlx42 -lglfw -framework OpenGL -framework IOKit -framework Cocoa
+LIBMLX					= $(HOME)/MLX42
+MLX_INCLUDE				= $(LIBMLX)/include/MLX42
+MLX_LIB					= $(LIBMLX)/build/libmlx42.a
 
-# Directories
-SRC_DIR			=	src
-INC_DIR			=	inc
-OBJ_DIR			=	obj
+# GLFW Configuration
+GLFW_INCLUDE			= $(HOME)/.brew/include
+GLFW_LIB				= $(HOME)/.brew/lib
+
+# Directories and Headers
+HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
+HEADER_FILES			= inc/cub3d.h
+
+# Libraries
+LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
 
 # Source files
-SRCS = \
-	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/parsing/parse_file.c \
-	$(SRC_DIR)/parsing/parse_textures.c \
-	$(SRC_DIR)/parsing/parse_map.c \
-	$(SRC_DIR)/parsing/validate_map.c \
-	$(SRC_DIR)/engine/init_game.c \
-	$(SRC_DIR)/engine/textures.c \
-	$(SRC_DIR)/engine/raycasting.c \
-	$(SRC_DIR)/engine/rendering.c \
-	$(SRC_DIR)/engine/input.c \
-	$(SRC_DIR)/engine/math_utils.c \
-	$(SRC_DIR)/utils/error.c \
-	$(SRC_DIR)/utils/utils.c \
-	$(SRC_DIR)/utils/free.c
+SRCS					= \
+	src/main.c \
+	src/parsing/parse_file.c \
+	src/parsing/parse_textures.c \
+	src/parsing/parse_map.c \
+	src/parsing/validate_map.c \
+	src/engine/init_game.c \
+	src/engine/textures.c \
+	src/engine/raycasting.c \
+	src/engine/rendering.c \
+	src/engine/input.c \
+	src/engine/math_utils.c \
+	src/utils/error.c \
+	src/utils/utils.c \
+	src/utils/free.c
 
-OBJS			=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-HEADER			=	$(INC_DIR)/cub3d.h
+OBJS					= ${SRCS:.c=.o}
 
-# Final compile flags
-ALL_INCLUDES	=	$(CFLAGS) -I$(INC_DIR) $(MLX_FLAGS)
+# Bonus source files (placeholder for future bonus features)
+SRCS_BONUS				= \
+	src/main.c \
+	src/parsing/parse_file.c \
+	src/parsing/parse_textures.c \
+	src/parsing/parse_map.c \
+	src/parsing/validate_map.c \
+	src/engine/init_game.c \
+	src/engine/textures.c \
+	src/engine/raycasting.c \
+	src/engine/rendering.c \
+	src/engine/input.c \
+	src/engine/math_utils.c \
+	src/utils/error.c \
+	src/utils/utils.c \
+	src/utils/free.c
+
+OBJS_BONUS				= ${SRCS_BONUS:.c=.o}
 
 all	:	banner $(NAME)
+
+bonus: banner $(BONUS)
 
 banner:
 	@printf "${BLUE}╔════════════════════════════════════════════════════════════════════════════════════╗${NC}\n"
@@ -69,33 +94,36 @@ banner:
 	@printf "${YELLOW}📋 Project: Cub3D - Raycasting Game Engine${NC}\n"
 	@printf "\n"
 
-$(NAME)	:	$(OBJS)
+$(NAME): compile_msg $(OBJS)
 	@printf "${GREEN}🔗 Linking objects to create $(NAME)...${NC}\n"
-	@$(CC) $(ALL_INCLUDES) $(OBJS) -o $(NAME) $(MLX_LIB)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@printf "${GREEN}✅ $(NAME) successfully compiled!${NC}\n"
 	@printf "${CYAN}🚀 Ready to explore the 3D world!${NC}\n"
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER)
-	@mkdir -p $(dir $@)
-	@printf "${GREEN}🔨 Compiling $<...${NC}\n"
-	@$(CC) $(ALL_INCLUDES) -c $< -o $@
+$(BONUS): compile_msg $(OBJS_BONUS)
+	@printf "${GREEN}🔗 Linking objects to create $(BONUS)...${NC}\n"
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBS) -o $(BONUS)
+	@printf "${GREEN}✅ $(BONUS) successfully compiled!${NC}\n"
+	@printf "${CYAN}🚀 Ready to explore the 3D world with bonus features!${NC}\n"
 
-$(OBJS): | compile_msg
+%.o: %.c $(HEADER_FILES)
+	@printf "${GREEN}🔨 Compiling $<...${NC}\n"
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 compile_msg:
 	@printf "${CYAN}🏗️  Compiling source files...${NC}\n"
 
-clean	:
+clean:
 	@printf "${YELLOW}🧹 Removing object files...${NC}\n"
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJS) $(OBJS_BONUS)
 	@printf "${YELLOW}✨ Object files cleaned!${NC}\n"
 
 fclean: clean
 	@printf "${YELLOW}🗑️  Removing executable...${NC}\n"
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(BONUS)
 	@printf "${YELLOW}🧽 Complete cleanup finished!${NC}\n"
 
-re	:	fclean all
+re: fclean all
 
 # Development utilities
 debug: CFLAGS += -fsanitize=address -g3
@@ -113,11 +141,12 @@ test: $(NAME)
 
 norm:
 	@printf "${BLUE}📏 Checking norminette...${NC}\n"
-	@norminette $(SRC_DIR) $(INC_DIR) | grep -v "OK!" || printf "${GREEN}✅ All files are norm compliant!${NC}\n"
+	@norminette src inc | grep -v "OK!" || printf "${GREEN}✅ All files are norm compliant!${NC}\n"
 
 help:
 	@printf "${CYAN}📖 Available targets:${NC}\n"
 	@printf "${YELLOW}  all${NC}      - Build the project\n"
+	@printf "${YELLOW}  bonus${NC}    - Build with bonus features\n"
 	@printf "${YELLOW}  clean${NC}    - Remove object files\n"
 	@printf "${YELLOW}  fclean${NC}   - Remove object files and executable\n"
 	@printf "${YELLOW}  re${NC}       - Rebuild everything\n"
@@ -126,4 +155,4 @@ help:
 	@printf "${YELLOW}  norm${NC}     - Check norm compliance\n"
 	@printf "${YELLOW}  help${NC}     - Show this help message\n"
 
-.PHONY	:	all clean fclean re banner debug test norm help compile_msg
+.PHONY: all bonus clean fclean re banner debug test norm help compile_msg
