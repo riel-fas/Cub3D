@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:33:02 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:00:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_valid_char(char c)
 	return (c == WALL || c == EMPTY || c == ' ' || is_player_char(c));
 }
 
-int	find_player_position(t_data *data)
+int	count_and_set_player(t_data *data)
 {
 	int	y;
 	int	x;
@@ -30,7 +30,6 @@ int	find_player_position(t_data *data)
 
 	player_count = 0;
 	y = 0;
-	
 	while (y < data->map_height)
 	{
 		x = 0;
@@ -49,6 +48,14 @@ int	find_player_position(t_data *data)
 		}
 		y++;
 	}
+	return (player_count);
+}
+
+int	find_player_position(t_data *data)
+{
+	int	player_count;
+
+	player_count = count_and_set_player(data);
 	
 	if (player_count == 0)
 	{

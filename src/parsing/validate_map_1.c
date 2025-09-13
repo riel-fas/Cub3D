@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:34:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:07:34 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int	is_surrounded_by_walls(t_data *data, int x, int y)
 {
-	// Check if position is at border
 	if (x == 0 || x == data->map_width - 1 || 
 		y == 0 || y == data->map_height - 1)
-	{
 		return (data->map[y][x] == WALL);
-	}
-	
-	// Check adjacent cells for walls or spaces that touch borders
 	int	dx[] = {-1, 1, 0, 0};
 	int	dy[] = {0, 0, -1, 1};
 	int	i;
@@ -32,27 +27,17 @@ int	is_surrounded_by_walls(t_data *data, int x, int y)
 	{
 		nx = x + dx[i];
 		ny = y + dy[i];
-		
-		// Check bounds
 		if (nx < 0 || nx >= data->map_width || 
 			ny < 0 || ny >= data->map_height)
-		{
 			return (FALSE);
-		}
-		
-		// If adjacent to space, check if that space reaches border
 		if (data->map[ny][nx] == ' ')
 		{
 			if (nx == 0 || nx == data->map_width - 1 || 
 				ny == 0 || ny == data->map_height - 1)
-			{
 				return (FALSE);
-			}
 		}
-		
 		i++;
 	}
-	
 	return (TRUE);
 }
 
@@ -61,10 +46,8 @@ int	validate_walls(t_data *data)
 	int	y;
 	int	x;
 
-	printf("🧱 Validating walls...\n");
-	
-	// Check that all playable areas are surrounded by walls
 	y = 0;
+	printf("🧱 Validating walls...\n");
 	while (y < data->map_height)
 	{
 		x = 0;
@@ -83,7 +66,6 @@ int	validate_walls(t_data *data)
 		}
 		y++;
 	}
-	
 	printf("✅ Map is properly enclosed by walls\n");
 	return (TRUE);
 }
@@ -91,33 +73,24 @@ int	validate_walls(t_data *data)
 void	flood_fill(char **map_copy, int x, int y, int width, int height)
 {
 	if (x < 0 || x >= width || y < 0 || y >= height)
-		return;
-	
+		return ;
 	if (map_copy[y][x] == WALL || map_copy[y][x] == 'F' || map_copy[y][x] == ' ')
-		return;
-	
-	map_copy[y][x] = 'F';  // Mark as filled
-	
-	// Recursively fill adjacent cells
+		return ;
+	map_copy[y][x] = 'F';
 	flood_fill(map_copy, x + 1, y, width, height);
 	flood_fill(map_copy, x - 1, y, width, height);
 	flood_fill(map_copy, x, y + 1, width, height);
 	flood_fill(map_copy, x, y - 1, width, height);
 }
 
-int	flood_fill_validation(t_data *data)
+char	**create_and_flood_fill_map(t_data *data)
 {
 	char	**map_copy;
 	int		y;
-	int		x;
 
-	printf("🌊 Performing flood fill validation...\n");
-	
-	// Create a copy of the map
 	map_copy = malloc(sizeof(char *) * data->map_height);
 	if (!map_copy)
-		return (FALSE);
-	
+		return (NULL);
 	y = 0;
 	while (y < data->map_height)
 	{
@@ -127,16 +100,20 @@ int	flood_fill_validation(t_data *data)
 			while (--y >= 0)
 				free(map_copy[y]);
 			free(map_copy);
-			return (FALSE);
+			return (NULL);
 		}
 		y++;
 	}
-	
-	// Start flood fill from player position
 	flood_fill(map_copy, (int)data->player_x, (int)data->player_y, 
 			   data->map_width, data->map_height);
-	
-	// Check if any empty space or player space was not reached (indicating disconnected areas)
+	return (map_copy);
+}
+
+int	validate_flood_fill_result(t_data *data, char **map_copy)
+{
+	int		y;
+	int		x;
+
 	y = 0;
 	while (y < data->map_height)
 	{
@@ -146,48 +123,49 @@ int	flood_fill_validation(t_data *data)
 			if ((data->map[y][x] == EMPTY || is_player_char(data->map[y][x])) && map_copy[y][x] != 'F')
 			{
 				printf("❌ Unreachable area found at (%d, %d)\n", x, y);
-				// Free map copy
-				y = 0;
-				while (y < data->map_height)
-					free(map_copy[y++]);
-				free(map_copy);
 				return (FALSE);
 			}
 			x++;
 		}
 		y++;
 	}
-	
-	// Free map copy
+	return (TRUE);
+}
+
+int	flood_fill_validation(t_data *data)
+{
+	char	**map_copy;
+	int		y;
+	int		result;
+
+	printf("🌊 Performing flood fill validation...\n");
+	map_copy = create_and_flood_fill_map(data);
+	if (!map_copy)
+		return (FALSE);
+	result = validate_flood_fill_result(data, map_copy);
 	y = 0;
 	while (y < data->map_height)
 		free(map_copy[y++]);
 	free(map_copy);
-	
-	printf("✅ Flood fill validation passed\n");
-	return (TRUE);
+	if (result)
+		printf("✅ Flood fill validation passed\n");
+	return (result);
 }
 
 int	validate_map(t_data *data)
 {
 	if (!validate_characters(data))
 		return (FALSE);
-	
 	if (!find_player_position(data))
 		return (FALSE);
-	
 	if (!check_map_borders(data))
 		return (FALSE);
-	
 	if (!check_empty_spaces_near_borders(data))
 		return (FALSE);
-	
 	if (!validate_walls(data))
 		return (FALSE);
-	
 	if (!flood_fill_validation(data))
 		return (FALSE);
-	
 	printf("✅ Map validation completed successfully\n");
 	return (TRUE);
 }

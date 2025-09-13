@@ -6,20 +6,18 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:34:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:34:39 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:11:23 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_map_borders(t_data *data)
+int	check_horizontal_borders(t_data *data)
 {
-	int	x, y;
+	int	x;
 
-	printf("🔒 Checking map borders...\n");
-	
-	// Check top and bottom borders
-	for (x = 0; x < data->map_width; x++)
+	x = 0;
+	while (x < data->map_width)
 	{
 		// Top border
 		if (data->map[0][x] != WALL && data->map[0][x] != ' ')
@@ -34,10 +32,17 @@ int	check_map_borders(t_data *data)
 			printf("❌ Map not closed at bottom border (%d, %d)\n", x, data->map_height - 1);
 			return (FALSE);
 		}
+		x++;
 	}
-	
-	// Check left and right borders
-	for (y = 0; y < data->map_height; y++)
+	return (TRUE);
+}
+
+int	check_vertical_borders(t_data *data)
+{
+	int	y;
+
+	y = 0;
+	while (y < data->map_height)
 	{
 		// Left border
 		if (data->map[y][0] != WALL && data->map[y][0] != ' ')
@@ -52,10 +57,41 @@ int	check_map_borders(t_data *data)
 			printf("❌ Map not closed at right border (%d, %d)\n", data->map_width - 1, y);
 			return (FALSE);
 		}
+		y++;
 	}
+	return (TRUE);
+}
+
+int	check_map_borders(t_data *data)
+{
+	printf("🔒 Checking map borders...\n");
+	
+	if (!check_horizontal_borders(data))
+		return (FALSE);
+	
+	if (!check_vertical_borders(data))
+		return (FALSE);
 	
 	printf("✅ Map borders are properly closed\n");
 	return (TRUE);
+}
+
+int	is_space_connecting_to_border(t_data *data, int x, int y)
+{
+	// Check if touching a space that touches border
+	if ((x > 0 && data->map[y][x-1] == ' ') ||
+		(x < data->map_width-1 && data->map[y][x+1] == ' ') ||
+		(y > 0 && data->map[y-1][x] == ' ') ||
+		(y < data->map_height-1 && data->map[y+1][x] == ' '))
+	{
+		// Check if that space reaches a border
+		if (x == 0 || x == data->map_width-1 || y == 0 || y == data->map_height-1)
+		{
+			printf("❌ Empty space connects to border at (%d, %d)\n", x, y);
+			return (TRUE);
+		}
+	}
+	return (FALSE);
 }
 
 int	check_empty_spaces_near_borders(t_data *data)
@@ -64,29 +100,21 @@ int	check_empty_spaces_near_borders(t_data *data)
 
 	printf("🚧 Checking spaces near borders...\n");
 	
-	for (y = 0; y < data->map_height; y++)
+	y = 0;
+	while (y < data->map_height)
 	{
-		for (x = 0; x < data->map_width; x++)
+		x = 0;
+		while (x < data->map_width)
 		{
 			if (data->map[y][x] == EMPTY || is_player_char(data->map[y][x]))
 			{
-				// Check if touching a space that touches border
-				if ((x > 0 && data->map[y][x-1] == ' ') ||
-					(x < data->map_width-1 && data->map[y][x+1] == ' ') ||
-					(y > 0 && data->map[y-1][x] == ' ') ||
-					(y < data->map_height-1 && data->map[y+1][x] == ' '))
-				{
-					// Check if that space reaches a border
-					if (x == 0 || x == data->map_width-1 || y == 0 || y == data->map_height-1)
-					{
-						printf("❌ Empty space connects to border at (%d, %d)\n", x, y);
-						return (FALSE);
-					}
-				}
+				if (is_space_connecting_to_border(data, x, y))
+					return (FALSE);
 			}
+			x++;
 		}
-	}
-	
+		y++;
+	}	
 	printf("✅ No empty spaces connect to borders\n");
 	return (TRUE);
 }
