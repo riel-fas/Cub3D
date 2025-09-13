@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 03:37:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:13:32 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 20:41:01 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	count_words_internal(char *str, char delimiter)
 {

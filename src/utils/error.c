@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: your_login <your_login@student.42.fr>      +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/01 12:00:00 by your_login       #+#    #+#             */
-/*   Updated: 2024/01/01 12:00:00 by your_login      ###   ########.fr       */
+/*   Created: 2025/09/13 20:40:12 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/13 20:40:26 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 void	error_exit(char *message)
 {

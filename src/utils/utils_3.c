@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:06:26 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:13:45 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 20:41:23 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	ft_strlen(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 05:19:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 20:45:15 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static char	*read_file_content(int fd)
 		error_exit(ERR_MALLOC);
 	file_content[0] = '\0';
 	total_size = 0;
-	while ((bytes_read = read(fd, buffer, BUFFER_SIZE - 1)) > 0)
+	bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
+	while (bytes_read > 0)
 	{
 		buffer[bytes_read] = '\0';
 		file_content = realloc(file_content, total_size + bytes_read + 1);
@@ -78,7 +79,6 @@ static char	**read_file_lines(char *filename, int *line_count)
 	free(file_content);
 	return (lines);
 }
-
 
 //those printf's are only for debug should be removed after that
 int	parse_file(t_data *data, char *filename)

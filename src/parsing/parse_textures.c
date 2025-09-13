@@ -1,15 +1,12 @@
-/* *******************************************************************	// Validate .png extension
-	if (!validate_texture_extension(path))
-	{
-		printf("❌ Texture file must have .png extension: %s\n", path);*** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: your_login <your_login@student.42.fr>      +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/01 12:00:00 by your_login       #+#    #+#             */
-/*   Updated: 2024/01/01 12:00:00 by your_login      ###   ########.fr       */
+/*   Created: 2025/09/13 20:51:14 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/13 20:51:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +168,11 @@ static int	parse_color_line(t_data *data, char *line)
 	}
 	else
 		return (FALSE);
+
+
+
+
+
 	if (*color_flag)
 	{
 		printf("❌ Duplicate color definition: %s\n", type_name);

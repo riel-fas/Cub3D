@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:05:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:06:35 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 20:41:14 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 static int	is_whitespace(char c)
 {

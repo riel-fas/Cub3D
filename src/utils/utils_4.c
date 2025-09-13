@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:07:02 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:12:54 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 20:41:27 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 static char	*extract_word(char *str, int *index, char delimiter)
 {
