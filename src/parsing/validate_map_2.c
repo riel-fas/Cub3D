@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:00:17 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:21:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	count_and_set_player(t_data *data)
 				data->player_dir = data->map[y][x];
 				player_count++;
 				printf("🎯 Player found at (%d, %d) facing %c\n", 
-					   x, y, data->player_dir);
+					x, y, data->player_dir);
 			}
 			x++;
 		}
@@ -56,19 +56,16 @@ int	find_player_position(t_data *data)
 	int	player_count;
 
 	player_count = count_and_set_player(data);
-	
 	if (player_count == 0)
 	{
 		printf("❌ No player found in map\n");
 		return (FALSE);
 	}
-	
 	if (player_count > 1)
 	{
 		printf("❌ Multiple players found in map\n");
 		return (FALSE);
 	}
-	
 	return (TRUE);
 }
 
@@ -78,7 +75,6 @@ int	validate_characters(t_data *data)
 	int	x;
 
 	printf("🔍 Validating map characters...\n");
-	
 	y = 0;
 	while (y < data->map_height)
 	{
@@ -87,15 +83,14 @@ int	validate_characters(t_data *data)
 		{
 			if (!is_valid_char(data->map[y][x]))
 			{
-				printf("❌ Invalid character '%c' (ASCII: %d) at position (%d, %d)\n", 
-					   data->map[y][x], (int)data->map[y][x], x, y);
+				printf("❌Invalid'%c'(ASCII: %d) at position(%d, %d)\n", 
+					data->map[y][x], (int)data->map[y][x], x, y);
 				return (FALSE);
 			}
 			x++;
 		}
 		y++;
 	}
-	
 	printf("✅ All characters are valid\n");
 	return (TRUE);
 }
