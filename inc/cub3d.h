@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:37:10 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 05:39:58 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,27 @@ int		count_words(char *str, char delimiter);
 void	error_exit(char *message);
 void	free_data(t_data *data);
 void	free_split(char **split);
+
+char	*pad_map_line(char *line, int target_width);
+int	initialize_map_data(t_data *data, int *map_start);
+int	allocate_map_memory(t_data *data);
+char	*process_map_line(char *file_line);
+int	add_line_to_map(t_data *data, char *trimmed_line, int map_index);
+int	is_config_line(char *trimmed_line);
+int	should_skip_line(char *trimmed_line);
+int	find_map_start(t_data *data);
+int	count_map_lines(t_data *data, int start);
+int	get_map_width(t_data *data, int start);
+int	process_single_line(t_data *data, int file_index, int *map_index);
+int	populate_map_data(t_data *data, int map_start);
+
+
+
+
+
+
+
+
+
 
 #endif

@@ -6,25 +6,31 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 04:14:57 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 05:19:07 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//reading the file lines 
-static char	**read_file_lines(char *filename, int *line_count)
+//helper function to open file and return file descriptor
+static int	open_file(char *filename)
 {
-	int		fd;
-	char	**lines;
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		error_exit(ERR_FILE);
+	return (fd);
+}
+
+//helper function to read file content into a string
+static char	*read_file_content(int fd)
+{
 	char	buffer[BUFFER_SIZE];
 	int		bytes_read;
 	int		total_size;
 	char	*file_content;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		error_exit(ERR_FILE);
 	file_content = malloc(1);
 	if (!file_content)
 		error_exit(ERR_MALLOC);
@@ -41,14 +47,35 @@ static char	**read_file_lines(char *filename, int *line_count)
 		strcat(file_content, buffer);
 		total_size += bytes_read;
 	}
-	close(fd);
+	return (file_content);
+}
+
+//helper function to split content into lines and count them
+static char	**split_and_count_lines(char *file_content, int *line_count)
+{
+	char	**lines;
+
 	lines = ft_split(file_content, '\n');
-	free(file_content);
 	if (!lines)
 		error_exit(ERR_MALLOC);
 	*line_count = 0;
 	while (lines[*line_count])
 		(*line_count)++;
+	return (lines);
+}
+
+//reading the file lines 
+static char	**read_file_lines(char *filename, int *line_count)
+{
+	int		fd;
+	char	**lines;
+	char	*file_content;
+
+	fd = open_file(filename);
+	file_content = read_file_content(fd);
+	close(fd);
+	lines = split_and_count_lines(file_content, line_count);
+	free(file_content);
 	return (lines);
 }
 
