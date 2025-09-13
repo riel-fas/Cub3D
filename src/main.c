@@ -120,6 +120,11 @@ int	main(int argc, char **argv)
 	
 	print_parsing_summary(&data);
 	
+	printf("🎯 Parsing completed successfully! Ready for engine integration.\n");
+	
+	/* ===== ENGINE SECTION (COMMENTED OUT FOR PARSING PHASE) =====
+	 * TODO: Uncomment when peer starts working on the engine
+	 * 
 	// Initialize and start the 3D engine
 	if (!init_game(&data))
 	{
@@ -134,6 +139,9 @@ int	main(int argc, char **argv)
 	
 	// Cleanup
 	cleanup_game(&data);
+	 * ===== END ENGINE SECTION =====
+	 */
+	
 	free_data(&data);
 	return (EXIT_SUCCESS);
 }

@@ -13,38 +13,47 @@ BONUS					= cub3D_bonus
 CC						= cc
 CFLAGS					= -Wall -Wextra -Werror -g
 
+# ===== MLX42 & GLFW LIBRARIES (COMMENTED OUT FOR PARSING PHASE) =====
+# TODO: Uncomment these when peer starts working on the engine
 # MLX42 Configuration
-LIBMLX					= $(HOME)/MLX42
-MLX_INCLUDE				= $(LIBMLX)/include/MLX42
-MLX_LIB					= $(LIBMLX)/build/libmlx42.a
+# LIBMLX					= $(HOME)/MLX42
+# MLX_INCLUDE				= $(HOME)/MLX42/include/MLX42
+# MLX_LIB					= $(HOME)/MLX42/build/libmlx42.a
 
-# GLFW Configuration
-GLFW_INCLUDE			= $(HOME)/.brew/include
-GLFW_LIB				= $(HOME)/.brew/lib
+# GLFW Configuration  
+# GLFW_INCLUDE			= $(HOME)/.brew/include
+# GLFW_LIB				= $(HOME)/.brew/lib
 
-# Directories and Headers
-HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
+# Headers (parsing only)
+HEADERS					= -I ./inc
+# HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 HEADER_FILES			= inc/cub3d.h
 
-# Libraries
-LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
+# Libraries (none needed for parsing)
+LIBS					= 
+# LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
+# ===== END MLX42 & GLFW LIBRARIES =====
 
-# Source files
+# Source files - PARSING ONLY (ENGINE COMMENTED OUT)
 SRCS					= \
 	src/main.c \
 	src/parsing/parse_file.c \
 	src/parsing/parse_textures.c \
 	src/parsing/parse_map.c \
 	src/parsing/validate_map.c \
-	src/engine/init_game.c \
-	src/engine/textures.c \
-	src/engine/raycasting.c \
-	src/engine/rendering.c \
-	src/engine/input.c \
-	src/engine/math_utils.c \
 	src/utils/error.c \
 	src/utils/utils.c \
 	src/utils/free.c
+
+# ===== ENGINE SOURCE FILES (COMMENTED OUT FOR PARSING PHASE) =====
+# TODO: Uncomment these when peer starts working on the engine
+#	src/engine/init_game.c \
+#	src/engine/textures.c \
+#	src/engine/raycasting.c \
+#	src/engine/rendering.c \
+#	src/engine/input.c \
+#	src/engine/math_utils.c \
+# ===== END ENGINE SOURCE FILES =====
 
 OBJS					= ${SRCS:.c=.o}
 

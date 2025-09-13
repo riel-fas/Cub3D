@@ -19,7 +19,11 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include <MLX42.h>
+/* ===== ENGINE INCLUDES (COMMENTED OUT FOR PARSING PHASE) =====
+ * TODO: Uncomment when peer starts working on the engine
+ */
+/* # include <MLX42.h> */
+/* ===== END ENGINE INCLUDES ===== */
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -113,25 +117,32 @@ typedef struct s_ray
 	int			tex_x;		// Texture x coordinate
 }	t_ray;
 
+/* ===== ENGINE STRUCTURES (COMMENTED OUT FOR PARSING PHASE) =====
+ * TODO: Uncomment when peer starts working on the engine
+ */
 /* Texture structure */
-typedef struct s_texture
+/* typedef struct s_texture
 {
 	mlx_texture_t	*mlx_texture;
 	int				width;
 	int				height;
 	uint32_t		**pixels;	// 2D array of pixel data
-}	t_texture;
+}	t_texture; */
+/* ===== END ENGINE STRUCTURES ===== */
 
 /* Game data structure */
 typedef struct s_data
 {
+	/* ===== ENGINE FIELDS (COMMENTED OUT FOR PARSING PHASE) =====
+	 * TODO: Uncomment when peer starts working on the engine
+	 */
 	/* MLX */
-	mlx_t		*mlx;
-	mlx_image_t	*image;
+	/* mlx_t		*mlx; */
+	/* mlx_image_t	*image; */
 	
 	/* Textures */
 	char		*texture_paths[4];	// NO, SO, WE, EA
-	t_texture	textures[4];		// Loaded texture data
+	/* t_texture	textures[4]; */		// Loaded texture data
 	t_color		floor_color;
 	t_color		ceiling_color;
 	
@@ -145,22 +156,23 @@ typedef struct s_data
 	double		player_y;
 	char		player_dir;		// N, S, E, W
 	double		player_angle;	// Angle in radians
-	t_vector	player_pos;		// Player position vector
-	t_vector	player_dir_vec;	// Player direction vector
-	t_vector	camera_plane;	// Camera plane vector
+	/* t_vector	player_pos; */		// Player position vector
+	/* t_vector	player_dir_vec; */	// Player direction vector
+	/* t_vector	camera_plane; */	// Camera plane vector
 	
 	/* Game state */
-	int			game_running;
+	/* int			game_running; */
 	
 	/* Input state for smooth movement */
-	struct {
+	/* struct {
 		int		w_pressed;
 		int		a_pressed;
 		int		s_pressed;
 		int		d_pressed;
 		int		left_pressed;
 		int		right_pressed;
-	}			keys;
+	}			keys; */
+	/* ===== END ENGINE FIELDS ===== */
 	
 	/* Parsing flags */
 	int			textures_parsed[4];	// Individual texture flags
@@ -184,53 +196,57 @@ typedef struct s_data
 int		main(int argc, char **argv);
 int		validate_args(int argc, char **argv);
 
-/* Game initialization */
-int		init_game(t_data *data);
-int		init_mlx(t_data *data);
-int		init_player(t_data *data);
-void	setup_player_vectors(t_data *data);
+/* ===== ENGINE FUNCTION PROTOTYPES (COMMENTED OUT FOR PARSING PHASE) =====
+ * TODO: Uncomment when peer starts working on the engine
+ 
+// Game initialization
+// int		init_game(t_data *data);
+// int		init_mlx(t_data *data);
+// int		init_player(t_data *data);
+// void	setup_player_vectors(t_data *data);
 
-/* Texture loading */
-int		load_textures(t_data *data);
-int		load_single_texture(t_data *data, int index);
-void	convert_texture_pixels(t_texture *texture);
-uint32_t get_pixel_color(t_texture *texture, int x, int y);
+// Texture loading
+// int		load_textures(t_data *data);
+// int		load_single_texture(t_data *data, int index);
+// void	convert_texture_pixels(t_texture *texture);
+// uint32_t get_pixel_color(t_texture *texture, int x, int y);
 
-/* Game loop */
-void	game_loop(void *param);
-void	update_game(t_data *data);
-void	render_frame(t_data *data);
+// Game loop
+// void	game_loop(void *param);
+// void	update_game(t_data *data);
+// void	render_frame(t_data *data);
 
-/* Raycasting */
-void	cast_rays(t_data *data);
-void	cast_single_ray(t_data *data, int x);
-void	init_ray(t_data *data, t_ray *ray, int x);
-void	calculate_step_and_side_dist(t_data *data, t_ray *ray);
-void	perform_dda(t_data *data, t_ray *ray);
-void	calculate_wall_distance(t_ray *ray);
-void	calculate_draw_bounds(t_ray *ray);
+// Raycasting
+// void	cast_rays(t_data *data);
+// void	cast_single_ray(t_data *data, int x);
+// void	init_ray(t_data *data, t_ray *ray, int x);
+// void	calculate_step_and_side_dist(t_data *data, t_ray *ray);
+// void	perform_dda(t_data *data, t_ray *ray);
+// void	calculate_wall_distance(t_ray *ray);
+// void	calculate_draw_bounds(t_ray *ray);
 
-/* Rendering */
-void	draw_vertical_line(t_data *data, int x, t_ray *ray);
-void	draw_textured_wall(t_data *data, int x, t_ray *ray);
-void	draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
-uint32_t get_texture_pixel(t_data *data, t_ray *ray, int y);
+// Rendering
+// void	draw_vertical_line(t_data *data, int x, t_ray *ray);
+// void	draw_textured_wall(t_data *data, int x, t_ray *ray);
+// void	draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
+// uint32_t get_texture_pixel(t_data *data, t_ray *ray, int y);
 
-/* Input handling */
-void	handle_input(mlx_key_data_t keydata, void *param);
-void	handle_mouse(double xpos, double ypos, void *param);
-void	process_movement(t_data *data);
-void	move_player(t_data *data, double move_x, double move_y);
-void	rotate_player(t_data *data, double angle);
+// Input handling
+// void	handle_input(mlx_key_data_t keydata, void *param);
+// void	handle_mouse(double xpos, double ypos, void *param);
+// void	process_movement(t_data *data);
+// void	move_player(t_data *data, double move_x, double move_y);
+// void	rotate_player(t_data *data, double angle);
 
-/* Math utilities */
-double	normalize_angle(double angle);
-double	distance(double x1, double y1, double x2, double y2);
-int		rgb_to_hex(int r, int g, int b);
+// Math utilities
+// double	normalize_angle(double angle);
+// double	distance(double x1, double y1, double x2, double y2);
+// int		rgb_to_hex(int r, int g, int b);
 
-/* Cleanup */
-void	cleanup_game(t_data *data);
-void	cleanup_textures(t_data *data);
+// Cleanup
+// void	cleanup_game(t_data *data);
+// void	cleanup_textures(t_data *data);
+ ===== END ENGINE FUNCTION PROTOTYPES ===== */
 
 /* Parsing */
 int		parse_file(t_data *data, char *filename);
