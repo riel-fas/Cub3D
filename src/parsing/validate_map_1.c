@@ -6,25 +6,24 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:31:51 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:49:37 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	flood_fill(char **map_copy, int x, 
-		int y, int width, int height)
+void	flood_fill(char **map_copy, int x, int y, t_data *data)
 {
-	if (x < 0 || x >= width || y < 0 || y >= height)
+	if (x < 0 || x >= data->map_width || y < 0 || y >= data->map_height)
 		return ;
-	if (map_copy[y][x] == WALL || map_copy[y][x] == 'F' 
+	if (map_copy[y][x] == WALL || map_copy[y][x] == 'F'
 		|| map_copy[y][x] == ' ')
 		return ;
 	map_copy[y][x] = 'F';
-	flood_fill(map_copy, x + 1, y, width, height);
-	flood_fill(map_copy, x - 1, y, width, height);
-	flood_fill(map_copy, x, y + 1, width, height);
-	flood_fill(map_copy, x, y - 1, width, height);
+	flood_fill(map_copy, x + 1, y, data);
+	flood_fill(map_copy, x - 1, y, data);
+	flood_fill(map_copy, x, y + 1, data);
+	flood_fill(map_copy, x, y - 1, data);
 }
 
 char	**create_and_flood_fill_map(t_data *data)
@@ -48,8 +47,7 @@ char	**create_and_flood_fill_map(t_data *data)
 		}
 		y++;
 	}
-	flood_fill(map_copy, (int)data->player_x, (int)data->player_y, 
-		data->map_width, data->map_height);
+	flood_fill(map_copy, (int)data->player_x, (int)data->player_y, data);
 	return (map_copy);
 }
 

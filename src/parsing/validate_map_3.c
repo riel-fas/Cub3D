@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:34:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:25:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:42:52 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_horizontal_borders(t_data *data)
 			printf("❌ Map not closed(%d, 0)\n", x);
 			return (FALSE);
 		}
-		if (data->map[data->map_height - 1][x] != WALL && 
+		if (data->map[data->map_height - 1][x] != WALL &&
 			data->map[data->map_height - 1][x] != ' ')
 		{
 			printf("❌ Map not closed(%d, %d)\n", x, data->map_height - 1);
@@ -47,7 +47,7 @@ int	check_vertical_borders(t_data *data)
 			printf("❌ Map not closed(0, %d)\n", y);
 			return (FALSE);
 		}
-		if (data->map[y][data->map_width - 1] != WALL && 
+		if (data->map[y][data->map_width - 1] != WALL &&
 			data->map[y][data->map_width - 1] != ' ')
 		{
 			printf("❌ Map not closed(%d, %d)\n", data->map_width - 1, y);
@@ -76,7 +76,7 @@ int	is_space_connecting_to_border(t_data *data, int x, int y)
 		|| (y > 0 && data->map[y - 1][x] == ' ')
 		|| (y < data->map_height - 1 && data->map[y + 1][x] == ' '))
 	{
-		if (x == 0 || x == data->map_width - 1 
+		if (x == 0 || x == data->map_width - 1
 			|| y == 0 || y == data->map_height - 1)
 		{
 			printf("❌ Empty space connects to border at (%d, %d)\n", x, y);
@@ -88,7 +88,7 @@ int	is_space_connecting_to_border(t_data *data, int x, int y)
 
 int	check_empty_spaces_near_borders(t_data *data)
 {
-	int	x; 
+	int	x;
 	int	y;
 
 	printf("🚧 Checking spaces near borders...\n");
