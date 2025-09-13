@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:36:49 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:36:13 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 23:20:30 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,26 @@ static int	store_texture_data(t_data *data, char *path, int type)
 {
 	if (data->textures_parsed[type])
 	{
-		printf("❌ Duplicate texture definition: %s\n", 
-			   (type == NO) ? "NO" : (type == SO) ? "SO" : 
-			   (type == WE) ? "WE" : "EA");
+		if (type == NO)
+			printf("❌ Duplicate texture definition: NO\n");
+		else if (type == SO)
+			printf("❌ Duplicate texture definition: SO\n");
+		else if (type == WE)
+			printf("❌ Duplicate texture definition: WE\n");
+		else
+			printf("❌ Duplicate texture definition: EA\n");
 		return (FALSE);
 	}
 	data->texture_paths[type] = path;
 	data->textures_parsed[type] = 1;
-	printf("✅ Texture %s: %s\n", 
-		   (type == NO) ? "NO" : (type == SO) ? "SO" : 
-		   (type == WE) ? "WE" : "EA", path);
+	if (type == NO)
+		printf("✅ Texture NO: %s\n", path);
+	else if (type == SO)
+		printf("✅ Texture SO: %s\n", path);
+	else if (type == WE)
+		printf("✅ Texture WE: %s\n", path);
+	else
+		printf("✅ Texture EA: %s\n", path);
 	return (TRUE);
 }
 
@@ -61,9 +71,14 @@ static char	*extract_texture_path(char *line, int type)
 		i++;
 	if (!line[i])
 	{
-		printf("❌ No texture path found for %s\n", 
-			   (type == NO) ? "NO" : (type == SO) ? "SO" : 
-			   (type == WE) ? "WE" : "EA");
+		if (type == NO)
+			printf("❌ No texture path found for NO\n");
+		else if (type == SO)
+			printf("❌ No texture path found for SO\n");
+		else if (type == WE)
+			printf("❌ No texture path found for WE\n");
+		else
+			printf("❌ No texture path found for EA\n");
 		return (NULL);
 	}
 	path = ft_strtrim(&line[i]);
@@ -84,22 +99,18 @@ int	parse_texture_line(t_data *data, char *line)
 	type = get_texture_type(line);
 	if (type == -1)
 		return (FALSE);
-	
 	path = extract_texture_path(line, type);
 	if (!path)
 		return (FALSE);
-	
 	if (!validate_texture_file(path))
 	{
 		free(path);
 		return (FALSE);
 	}
-	
 	if (!store_texture_data(data, path, type))
 	{
 		free(path);
 		return (FALSE);
 	}
-	
 	return (TRUE);
 }

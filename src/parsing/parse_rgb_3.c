@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:26:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:45:10 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 23:13:07 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 // Check if color already set
 // Skip spaces
-static int	identify_color_type(char *line, t_color **target_color, 
-						char **type_name, int **color_flag, t_data *data)
+static int	identify_color_type(char *line, t_data *data,
+						t_color **target_color, char **type_name)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		*target_color = &data->floor_color;
 		*type_name = "Floor";
-		*color_flag = &data->colors_parsed[0];
-		return (1);
+		return (0);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		*target_color = &data->ceiling_color;
 		*type_name = "Ceiling";
-		*color_flag = &data->colors_parsed[1];
 		return (1);
 	}
-	return (0);
+	return (-1);
 }
 
 static int	check_duplicate_color(int *color_flag, char *type_name)
@@ -56,7 +54,7 @@ static char	*skip_to_color_values(char *line)
 	return (&line[i]);
 }
 
-static int	validate_and_parse_rgb(char *rgb_start, t_color *target_color, 
+static int	validate_and_parse_rgb(char *rgb_start, t_color *target_color,
 								char *type_name)
 {
 	if (!rgb_start)
@@ -76,19 +74,19 @@ int	parse_color_line(t_data *data, char *line)
 {
 	t_color	*target_color;
 	char	*type_name;
-	int		*color_flag;
+	int		color_type;
 	char	*rgb_start;
 
-	if (!identify_color_type(line, &target_color, 
-			&type_name, &color_flag, data))
+	color_type = identify_color_type(line, data, &target_color, &type_name);
+	if (color_type == -1)
 		return (FALSE);
-	if (!check_duplicate_color(color_flag, type_name))
+	if (!check_duplicate_color(&data->colors_parsed[color_type], type_name))
 		return (FALSE);
 	rgb_start = skip_to_color_values(line);
 	if (!validate_and_parse_rgb(rgb_start, target_color, type_name))
 		return (FALSE);
-	*color_flag = 1;
-	printf("✅ %s color: RGB(%d, %d, %d)\n", 
+	data->colors_parsed[color_type] = 1;
+	printf("✅ %s color: RGB(%d, %d, %d)\n",
 		type_name, target_color->r, target_color->g, target_color->b);
 	return (TRUE);
 }

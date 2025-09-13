@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:21:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:45:37 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 23:07:27 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	validate_texture_extension(char *path)
 	len = ft_strlen(path);
 	if (len < 4)
 		return (FALSE);
-	return (ft_strncmp(path + len - 4, ".png", 4) == 0 || 
-		ft_strncmp(path + len - 4, ".PNG", 4) == 0);
+	if (ft_strncmp(path + len - 4, ".png", 4) == 0)
+		return (TRUE);
+	if (ft_strncmp(path + len - 4, ".PNG", 4) == 0)
+		return (TRUE);
+	return (FALSE);
 }

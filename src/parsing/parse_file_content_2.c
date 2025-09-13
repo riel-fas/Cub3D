@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:33:49 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:40:57 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 22:54:27 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int	is_empty_or_comment(char *line)
 int	is_texture_line(char *line)
 {
 	return (ft_strncmp(line, "NO ", 3) == 0
-        || ft_strncmp(line, "SO ", 3) == 0
-        || ft_strncmp(line, "WE ", 3) == 0
-        || ft_strncmp(line, "EA ", 3) == 0);
+		|| ft_strncmp(line, "SO ", 3) == 0
+		|| ft_strncmp(line, "WE ", 3) == 0
+		|| ft_strncmp(line, "EA ", 3) == 0);
 }
 
 int	is_color_line(char *line)
 {
 	return (ft_strncmp(line, "F ", 2) == 0
-        || ft_strncmp(line, "C ", 2) == 0);
+		|| ft_strncmp(line, "C ", 2) == 0);
 }
 
 int	process_single_line(t_data *data, char *trimmed_line)
@@ -50,11 +50,11 @@ int	process_single_line(t_data *data, char *trimmed_line)
 
 int	validate_parsing_completeness(t_data *data)
 {
-	int total_textures;
-	int total_colors;
+	int	total_textures;
+	int	total_colors;
 
-	total_textures = data->textures_parsed[0] + data->textures_parsed[1] + 
-				 data->textures_parsed[2] + data->textures_parsed[3];
+	total_textures = data->textures_parsed[0] + data->textures_parsed[1]
+		+ data->textures_parsed[2] + data->textures_parsed[3];
 	total_colors = data->colors_parsed[0] + data->colors_parsed[1];
 	if (total_textures != 4)
 	{
