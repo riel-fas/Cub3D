@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: your_login <your_login@student.42.fr>      +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/01 12:00:00 by your_login       #+#    #+#             */
-/*   Updated: 2024/01/01 12:00:00 by your_login      ###   ########.fr       */
+/*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/13 02:58:42 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+//reading the file lines 
 static char	**read_file_lines(char *filename, int *line_count)
 {
 	int		fd;
@@ -24,8 +25,6 @@ static char	**read_file_lines(char *filename, int *line_count)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		error_exit(ERR_FILE);
-	
-	// Read entire file into memory
 	file_content = malloc(1);
 	if (!file_content)
 		error_exit(ERR_MALLOC);
@@ -44,54 +43,40 @@ static char	**read_file_lines(char *filename, int *line_count)
 		total_size += bytes_read;
 	}
 	close(fd);
-	
-	// Split content by newlines
 	lines = ft_split(file_content, '\n');
 	free(file_content);
-	
 	if (!lines)
 		error_exit(ERR_MALLOC);
-	
-	// Count lines
 	*line_count = 0;
 	while (lines[*line_count])
 		(*line_count)++;
-	
 	return (lines);
 }
 
+
+//those printf's are only for debug should be removed after that
 int	parse_file(t_data *data, char *filename)
 {
 	printf("📖 Reading file: %s\n", filename);
-	
-	// Read all lines from file
 	data->file_lines = read_file_lines(filename, &data->line_count);
-	
 	printf("📝 File contains %d lines\n", data->line_count);
-	
-	// Parse textures and colors first
 	printf("🎨 Parsing textures and colors...\n");
 	if (!parse_textures_and_colors(data))
 	{
 		printf("❌ Failed to parse textures and colors\n");
 		return (FALSE);
 	}
-	
-	// Parse map
 	printf("🗺️  Parsing map...\n");
 	if (!parse_map(data))
 	{
 		printf("❌ Failed to parse map\n");
 		return (FALSE);
 	}
-	
-	// Validate map
 	printf("✅ Validating map...\n");
 	if (!validate_map(data))
 	{
 		printf("❌ Map validation failed\n");
 		return (FALSE);
 	}
-	
 	return (TRUE);
 }

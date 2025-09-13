@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: your_login <your_login@student.42.fr>      +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/01 12:00:00 by your_login       #+#    #+#             */
-/*   Updated: 2024/01/01 12:00:00 by your_login      ###   ########.fr       */
+/*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/13 02:43:29 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,21 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-/* ===== ENGINE INCLUDES (COMMENTED OUT FOR PARSING PHASE) =====
- * TODO: Uncomment when peer starts working on the engine
- */
-/* # include <MLX42.h> */
-/* ===== END ENGINE INCLUDES ===== */
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/ssallami/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
 # define FALSE 0
 
 /* Window settings */
-# define WINDOW_WIDTH 1024
-# define WINDOW_HEIGHT 768
-# define WINDOW_TITLE "Cub3D - 3D Raycasting Engine"
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 750
+# define WINDOW_TITLE "Cub3D"
 
-/* Game settings */
-# define FOV 1.047198		// 60 degrees in radians (PI/3)
-# define MOVE_SPEED 0.1
-# define ROTATE_SPEED 0.03
+// # define MOVE_SPEED 0.1
+// # define ROTATE_SPEED 0.03
 # define TEXTURE_SIZE 64
-
-/* Math constants */
-# define PI 3.14159265359
-# define TWO_PI 6.28318530718
 
 /* Error messages */
 # define ERR_ARGS "Error\nUsage: ./cub3D <map.cub>\n"
@@ -89,53 +80,9 @@ typedef struct s_color
 	int	hex;		// Hex representation for MLX
 }	t_color;
 
-/* Vector structure for raycasting */
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-}	t_vector;
 
-/* Ray structure */
-typedef struct s_ray
-{
-	t_vector	pos;		// Ray position
-	t_vector	dir;		// Ray direction
-	t_vector	delta_dist;	// Distance between x/y intersections
-	t_vector	side_dist;	// Distance to next x/y intersection
-	t_vector	step;		// Step direction (-1 or 1)
-	int			map_x;		// Current map position
-	int			map_y;
-	int			hit;		// Wall hit flag
-	int			side;		// Which side was hit (0=x, 1=y)
-	double		wall_dist;	// Distance to wall
-	int			line_height;// Height of wall line to draw
-	int			draw_start;	// Start pixel of wall
-	int			draw_end;	// End pixel of wall
-	int			tex_num;	// Texture number (0-3)
-	double		wall_x;		// Exact wall hit position
-	int			tex_x;		// Texture x coordinate
-}	t_ray;
-
-/* ===== ENGINE STRUCTURES (COMMENTED OUT FOR PARSING PHASE) =====
- * TODO: Uncomment when peer starts working on the engine
- */
-/* Texture structure */
-/* typedef struct s_texture
-{
-	mlx_texture_t	*mlx_texture;
-	int				width;
-	int				height;
-	uint32_t		**pixels;	// 2D array of pixel data
-}	t_texture; */
-/* ===== END ENGINE STRUCTURES ===== */
-
-/* Game data structure */
 typedef struct s_data
 {
-	/* ===== ENGINE FIELDS (COMMENTED OUT FOR PARSING PHASE) =====
-	 * TODO: Uncomment when peer starts working on the engine
-	 */
 	/* MLX */
 	/* mlx_t		*mlx; */
 	/* mlx_image_t	*image; */
@@ -156,27 +103,10 @@ typedef struct s_data
 	double		player_y;
 	char		player_dir;		// N, S, E, W
 	double		player_angle;	// Angle in radians
-	/* t_vector	player_pos; */		// Player position vector
-	/* t_vector	player_dir_vec; */	// Player direction vector
-	/* t_vector	camera_plane; */	// Camera plane vector
-	
-	/* Game state */
-	/* int			game_running; */
-	
-	/* Input state for smooth movement */
-	/* struct {
-		int		w_pressed;
-		int		a_pressed;
-		int		s_pressed;
-		int		d_pressed;
-		int		left_pressed;
-		int		right_pressed;
-	}			keys; */
-	/* ===== END ENGINE FIELDS ===== */
 	
 	/* Parsing flags */
-	int			textures_parsed[4];	// Individual texture flags
-	int			colors_parsed[2];	// Floor and ceiling flags
+	int			textures_parsed[4];	// individual texture flags
+	int			colors_parsed[2];	// floor and ceiling flags
 	int			map_started;
 	int			parsing_complete;
 	
@@ -190,63 +120,15 @@ typedef struct s_data
 	int			**visited;		// For flood fill algorithm
 }	t_data;
 
+
+
+
 /* Function prototypes */
 
 /* Main */
 int		main(int argc, char **argv);
 int		validate_args(int argc, char **argv);
 
-/* ===== ENGINE FUNCTION PROTOTYPES (COMMENTED OUT FOR PARSING PHASE) =====
- * TODO: Uncomment when peer starts working on the engine
- 
-// Game initialization
-// int		init_game(t_data *data);
-// int		init_mlx(t_data *data);
-// int		init_player(t_data *data);
-// void	setup_player_vectors(t_data *data);
-
-// Texture loading
-// int		load_textures(t_data *data);
-// int		load_single_texture(t_data *data, int index);
-// void	convert_texture_pixels(t_texture *texture);
-// uint32_t get_pixel_color(t_texture *texture, int x, int y);
-
-// Game loop
-// void	game_loop(void *param);
-// void	update_game(t_data *data);
-// void	render_frame(t_data *data);
-
-// Raycasting
-// void	cast_rays(t_data *data);
-// void	cast_single_ray(t_data *data, int x);
-// void	init_ray(t_data *data, t_ray *ray, int x);
-// void	calculate_step_and_side_dist(t_data *data, t_ray *ray);
-// void	perform_dda(t_data *data, t_ray *ray);
-// void	calculate_wall_distance(t_ray *ray);
-// void	calculate_draw_bounds(t_ray *ray);
-
-// Rendering
-// void	draw_vertical_line(t_data *data, int x, t_ray *ray);
-// void	draw_textured_wall(t_data *data, int x, t_ray *ray);
-// void	draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
-// uint32_t get_texture_pixel(t_data *data, t_ray *ray, int y);
-
-// Input handling
-// void	handle_input(mlx_key_data_t keydata, void *param);
-// void	handle_mouse(double xpos, double ypos, void *param);
-// void	process_movement(t_data *data);
-// void	move_player(t_data *data, double move_x, double move_y);
-// void	rotate_player(t_data *data, double angle);
-
-// Math utilities
-// double	normalize_angle(double angle);
-// double	distance(double x1, double y1, double x2, double y2);
-// int		rgb_to_hex(int r, int g, int b);
-
-// Cleanup
-// void	cleanup_game(t_data *data);
-// void	cleanup_textures(t_data *data);
- ===== END ENGINE FUNCTION PROTOTYPES ===== */
 
 /* Parsing */
 int		parse_file(t_data *data, char *filename);

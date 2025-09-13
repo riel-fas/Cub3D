@@ -13,28 +13,21 @@ BONUS					= cub3D_bonus
 CC						= cc
 CFLAGS					= -Wall -Wextra -Werror -g
 
-# ===== MLX42 & GLFW LIBRARIES (COMMENTED OUT FOR PARSING PHASE) =====
-# TODO: Uncomment these when peer starts working on the engine
-# MLX42 Configuration
-# LIBMLX					= $(HOME)/MLX42
-# MLX_INCLUDE				= $(HOME)/MLX42/include/MLX42
-# MLX_LIB					= $(HOME)/MLX42/build/libmlx42.a
+# ===== MLX42 & GLFW LIBRARIES 
 
-# GLFW Configuration  
-# GLFW_INCLUDE			= $(HOME)/.brew/include
-# GLFW_LIB				= $(HOME)/.brew/lib
+LIBMLX					= $(HOME)/MLX42
+MLX_INCLUDE				= $(HOME)/MLX42/include/MLX42
+MLX_LIB					= $(HOME)/MLX42/build/libmlx42.a
+GLFW_INCLUDE			= $(HOME)/.brew/include
+GLFW_LIB				= $(HOME)/.brew/lib
 
-# Headers (parsing only)
-HEADERS					= -I ./inc
-# HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
+HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 HEADER_FILES			= inc/cub3d.h
 
-# Libraries (none needed for parsing)
-LIBS					= 
-# LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
-# ===== END MLX42 & GLFW LIBRARIES =====
+# LIBS					= 
+LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
 
-# Source files - PARSING ONLY (ENGINE COMMENTED OUT)
+
 SRCS					= \
 	src/main.c \
 	src/parsing/parse_file.c \
@@ -45,34 +38,10 @@ SRCS					= \
 	src/utils/utils.c \
 	src/utils/free.c
 
-# ===== ENGINE SOURCE FILES (COMMENTED OUT FOR PARSING PHASE) =====
-# TODO: Uncomment these when peer starts working on the engine
-#	src/engine/init_game.c \
-#	src/engine/textures.c \
-#	src/engine/raycasting.c \
-#	src/engine/rendering.c \
-#	src/engine/input.c \
-#	src/engine/math_utils.c \
-# ===== END ENGINE SOURCE FILES =====
-
 OBJS					= ${SRCS:.c=.o}
 
 # # Bonus source files (placeholder for future bonus features)
 # SRCS_BONUS				= \
-# 	src/main.c \
-# 	src/parsing/parse_file.c \
-# 	src/parsing/parse_textures.c \
-# 	src/parsing/parse_map.c \
-# 	src/parsing/validate_map.c \
-# 	src/engine/init_game.c \
-# 	src/engine/textures.c \
-# 	src/engine/raycasting.c \
-# 	src/engine/rendering.c \
-# 	src/engine/input.c \
-# 	src/engine/math_utils.c \
-# 	src/utils/error.c \
-# 	src/utils/utils.c \
-# 	src/utils/free.c
 
 # OBJS_BONUS				= ${SRCS_BONUS:.c=.o}
 
@@ -99,7 +68,7 @@ banner:
 	@printf "${BLUE}╚════════════════════════════════════════════════════════════════════════════════════╝${NC}\n"
 	@printf "\n"
 	@printf "${YELLOW}📅 Build Date: $(shell date '+%Y-%m-%d %H:%M:%S') UTC${NC}\n"
-	@printf "${YELLOW}🏗️  Compiled by: 42 School Students${NC}\n"
+	@printf "${YELLOW}🏗️   riel-fas ssallami  ${NC}\n"
 	@printf "${YELLOW}📋 Project: Cub3D - Raycasting Game Engine${NC}\n"
 	@printf "\n"
 
@@ -134,6 +103,10 @@ fclean: clean
 
 re: fclean all
 
+.PHONY: all bonus clean fclean re banner 
+
+
+
 # # Development utilities
 # debug: CFLAGS += -fsanitize=address -g3
 # debug: $(NAME)
@@ -164,5 +137,4 @@ re: fclean all
 # 	@printf "${YELLOW}  norm${NC}     - Check norm compliance\n"
 # 	@printf "${YELLOW}  help${NC}     - Show this help message\n"
 
-.PHONY: all bonus clean fclean re banner 
 # debug test norm help compile_msg

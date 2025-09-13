@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+//init to all date 
 static void	init_data(t_data *data)
 {
 	int	i;
@@ -47,6 +48,7 @@ static void	init_data(t_data *data)
 	data->visited = NULL;
 }
 
+//checking if file is .cub
 static int	check_file_extension(char *filename)
 {
 	int	len;
@@ -60,7 +62,7 @@ static int	check_file_extension(char *filename)
 		return (FALSE);
 	return (TRUE);
 }
-
+//only for checking the parsing work should be removed after that
 static void	print_parsing_summary(t_data *data)
 {
 	int	total_textures = 0;
@@ -108,6 +110,7 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	data.filename = argv[1];
 	
+	//all these printf's are only to keep track they should be removed after that 
 	printf("🚀 Starting Cub3D parsing...\n");
 	printf("📁 File: %s\n\n", argv[1]);
 	
@@ -118,13 +121,13 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	
+	//this function call helps checking if all parsing rules are good !!!
 	print_parsing_summary(&data);
 	
+	//just testing parsing
 	printf("🎯 Parsing completed successfully! Ready for engine integration.\n");
 	
 	/* ===== ENGINE SECTION (COMMENTED OUT FOR PARSING PHASE) =====
-	 * TODO: Uncomment when peer starts working on the engine
-	 * 
 	// Initialize and start the 3D engine
 	if (!init_game(&data))
 	{
@@ -139,7 +142,6 @@ int	main(int argc, char **argv)
 	
 	// Cleanup
 	cleanup_game(&data);
-	 * ===== END ENGINE SECTION =====
 	 */
 	
 	free_data(&data);
