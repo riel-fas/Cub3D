@@ -6,15 +6,14 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:26:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:26:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 22:45:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-	// Check if color already set
-	// Skip spaces
+// Check if color already set
+// Skip spaces
 static int	identify_color_type(char *line, t_color **target_color, 
 						char **type_name, int **color_flag, t_data *data)
 {
@@ -80,7 +79,8 @@ int	parse_color_line(t_data *data, char *line)
 	int		*color_flag;
 	char	*rgb_start;
 
-	if (!identify_color_type(line, &target_color, &type_name, &color_flag, data))
+	if (!identify_color_type(line, &target_color, 
+			&type_name, &color_flag, data))
 		return (FALSE);
 	if (!check_duplicate_color(color_flag, type_name))
 		return (FALSE);
@@ -89,6 +89,6 @@ int	parse_color_line(t_data *data, char *line)
 		return (FALSE);
 	*color_flag = 1;
 	printf("✅ %s color: RGB(%d, %d, %d)\n", 
-		   type_name, target_color->r, target_color->g, target_color->b);
+		type_name, target_color->r, target_color->g, target_color->b);
 	return (TRUE);
-}   
+}

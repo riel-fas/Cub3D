@@ -5,37 +5,101 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 21:21:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 21:26:08 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/09/13 21:36:49 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/13 22:36:13 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_texture_type(char *line)
+// Check for duplicate texture and store texture data
+static int	store_texture_data(t_data *data, char *path, int type)
 {
-	if (!line)
-		return (-1);
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (NO);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (SO);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (WE);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (EA);
-	return (-1);
+	if (data->textures_parsed[type])
+	{
+		printf("❌ Duplicate texture definition: %s\n", 
+			   (type == NO) ? "NO" : (type == SO) ? "SO" : 
+			   (type == WE) ? "WE" : "EA");
+		return (FALSE);
+	}
+	data->texture_paths[type] = path;
+	data->textures_parsed[type] = 1;
+	printf("✅ Texture %s: %s\n", 
+		   (type == NO) ? "NO" : (type == SO) ? "SO" : 
+		   (type == WE) ? "WE" : "EA", path);
+	return (TRUE);
 }
 
-int	validate_texture_extension(char *path)
+// Validate texture file extension and accessibility
+static int	validate_texture_file(char *path)
 {
-	int	len;
+	int	fd;
 
+	if (!validate_texture_extension(path))
+	{
+		printf("❌ Texture file must have .xpm extension: %s\n", path);
+		return (FALSE);
+	}
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("❌ Cannot open texture file: %s\n", path);
+		return (FALSE);
+	}
+	close(fd);
+	return (TRUE);
+}
+
+// Extract texture path from line, skipping identifier and whitespace
+static char	*extract_texture_path(char *line, int type)
+{
+	char	*path;
+	int		i;
+
+	i = 2;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (!line[i])
+	{
+		printf("❌ No texture path found for %s\n", 
+			   (type == NO) ? "NO" : (type == SO) ? "SO" : 
+			   (type == WE) ? "WE" : "EA");
+		return (NULL);
+	}
+	path = ft_strtrim(&line[i]);
+	if (!path)
+		return (NULL);
+	return (path);
+}
+
+// skip texture identifier and spaces
+// Validate .xpm extension
+// Check if file exists
+// Check if texture already set
+int	parse_texture_line(t_data *data, char *line)
+{
+	int		type;
+	char	*path;
+
+	type = get_texture_type(line);
+	if (type == -1)
+		return (FALSE);
+	
+	path = extract_texture_path(line, type);
 	if (!path)
 		return (FALSE);
-	len = ft_strlen(path);
-	if (len < 4)
+	
+	if (!validate_texture_file(path))
+	{
+		free(path);
 		return (FALSE);
-	return (ft_strncmp(path + len - 4, ".png", 4) == 0 || 
-			ft_strncmp(path + len - 4, ".PNG", 4) == 0);
+	}
+	
+	if (!store_texture_data(data, path, type))
+	{
+		free(path);
+		return (FALSE);
+	}
+	
+	return (TRUE);
 }
