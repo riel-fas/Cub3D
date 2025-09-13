@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 02:43:29 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 04:37:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 // # include "/Users/ssallami/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
@@ -121,6 +121,7 @@ typedef struct s_data
 }	t_data;
 
 
+int	count_words_internal(char *str, char delimiter);
 
 
 /* Function prototypes */

@@ -17,8 +17,7 @@ void	free_split(char **split)
 	int	i;
 
 	if (!split)
-		return;
-	
+		return ;
 	i = 0;
 	while (split[i])
 	{
@@ -28,14 +27,10 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_data(t_data *data)
+static void	free_texture_paths(t_data *data)
 {
 	int	i;
 
-	if (!data)
-		return;
-	
-	// Free texture paths
 	i = 0;
 	while (i < 4)
 	{
@@ -46,8 +41,12 @@ void	free_data(t_data *data)
 		}
 		i++;
 	}
-	
-	// Free map
+}
+
+static void	free_map_data(t_data *data)
+{
+	int	i;
+
 	if (data->map)
 	{
 		i = 0;
@@ -59,8 +58,14 @@ void	free_data(t_data *data)
 		free(data->map);
 		data->map = NULL;
 	}
-	
-	// Free file lines
+}
+
+void	free_data(t_data *data)
+{
+	if (!data)
+		return ;
+	free_texture_paths(data);
+	free_map_data(data);
 	if (data->file_lines)
 	{
 		free_split(data->file_lines);

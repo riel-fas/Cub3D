@@ -12,8 +12,7 @@
 
 #include "cub3d.h"
 
-//init to all date 
-static void	init_data(t_data *data)
+static void	init_textures_and_colors(t_data *data)
 {
 	int	i;
 
@@ -30,8 +29,12 @@ static void	init_data(t_data *data)
 	data->ceiling_color.r = -1;
 	data->ceiling_color.g = -1;
 	data->ceiling_color.b = -1;
-	data->colors_parsed[0] = 0;	// Floor
-	data->colors_parsed[1] = 0;	// Ceiling
+	data->colors_parsed[0] = 0;
+	data->colors_parsed[1] = 0;
+}
+
+static void	init_map_and_player(t_data *data)
+{
 	data->map = NULL;
 	data->map_width = 0;
 	data->map_height = 0;
@@ -48,7 +51,12 @@ static void	init_data(t_data *data)
 	data->visited = NULL;
 }
 
-//checking if file is .cub
+static void	init_data(t_data *data)
+{
+	init_textures_and_colors(data);
+	init_map_and_player(data);
+}
+
 static int	check_file_extension(char *filename)
 {
 	int	len;
@@ -62,37 +70,54 @@ static int	check_file_extension(char *filename)
 		return (FALSE);
 	return (TRUE);
 }
-//only for checking the parsing work should be removed after that
-static void	print_parsing_summary(t_data *data)
-{
-	int	total_textures = 0;
-	int	i = 0;
 
+//will be removeed after testing
+static void	print_texture_status(t_data *data)
+{
+	int	total_textures;
+	int	i;
+
+	total_textures = 0;
+	i = 0;
 	while (i < 4)
 	{
 		if (data->textures_parsed[i])
 			total_textures++;
 		i++;
 	}
-
-	printf("\n🎯 === PARSING SUMMARY ===\n");
-	printf("📁 File: %s\n", data->filename ? data->filename : "Unknown");
-	printf("📄 Lines processed: %d\n", data->line_count);
-	printf("🖼️  Textures: %d/4 ", total_textures);
+	printf("️  Textures: %d/4 ", total_textures);
 	if (total_textures == 4)
 		printf("✅\n");
 	else
 		printf("❌\n");
-	
+}
+
+//will be removeed after testing
+static void	print_color_status(t_data *data)
+{
 	printf("🎨 Colors: %d/2 ", data->colors_parsed[0] + data->colors_parsed[1]);
 	if (data->colors_parsed[0] && data->colors_parsed[1])
 		printf("✅\n");
 	else
 		printf("❌\n");
-	
+}
+
+//will be removeed after testing
+static void	print_parsing_summary(t_data *data)
+{
+	char	*filename;
+
+	filename = "Unknown";
+	if (data->filename)
+		filename = data->filename;
+	printf("\n🎯 === PARSING SUMMARY ===\n");
+	printf("📁 File: %s\n", filename);
+	printf("📄 Lines processed: %d\n", data->line_count);
+	print_texture_status(data);
+	print_color_status(data);
 	printf("🗺️  Map: %dx%d ✅\n", data->map_width, data->map_height);
-	printf("🎯 Player: (%.1f, %.1f) facing '%c' ✅\n", 
-		   data->player_x, data->player_y, data->player_dir);
+	printf("🎯 Player: (%.1f, %.1f) facing '%c' ✅\n",
+		data->player_x, data->player_y, data->player_dir);
 	printf("🎉 Status: PARSING COMPLETE! ✅\n");
 	printf("========================\n\n");
 }
@@ -103,47 +128,20 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		error_exit(ERR_ARGS);
-	
 	if (!check_file_extension(argv[1]))
 		error_exit(ERR_EXTENSION);
-	
 	init_data(&data);
 	data.filename = argv[1];
-	
-	//all these printf's are only to keep track they should be removed after that 
 	printf("🚀 Starting Cub3D parsing...\n");
 	printf("📁 File: %s\n\n", argv[1]);
-	
 	if (!parse_file(&data, argv[1]))
 	{
 		printf("❌ Parsing failed!\n");
 		free_data(&data);
 		exit(EXIT_FAILURE);
 	}
-	
-	//this function call helps checking if all parsing rules are good !!!
 	print_parsing_summary(&data);
-	
-	//just testing parsing
-	printf("🎯 Parsing completed successfully! Ready for engine integration.\n");
-	
-	/* ===== ENGINE SECTION (COMMENTED OUT FOR PARSING PHASE) =====
-	// Initialize and start the 3D engine
-	if (!init_game(&data))
-	{
-		printf("❌ Failed to initialize 3D engine!\n");
-		free_data(&data);
-		exit(EXIT_FAILURE);
-	}
-	
-	// Start the game loop
-	mlx_loop_hook(data.mlx, game_loop, &data);
-	mlx_loop(data.mlx);
-	
-	// Cleanup
-	cleanup_game(&data);
-	 */
-	
+	printf("🎯 Parsing completed successfully!\n");
 	free_data(&data);
 	return (EXIT_SUCCESS);
 }

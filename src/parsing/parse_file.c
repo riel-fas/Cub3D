@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 02:58:42 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/13 04:14:57 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static char	**read_file_lines(char *filename, int *line_count)
 		error_exit(ERR_MALLOC);
 	file_content[0] = '\0';
 	total_size = 0;
-	
 	while ((bytes_read = read(fd, buffer, BUFFER_SIZE - 1)) > 0)
 	{
 		buffer[bytes_read] = '\0';
