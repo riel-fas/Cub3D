@@ -90,6 +90,9 @@ void	game_loop(void *param)
 	if (!data->game_running)
 		return;
 	
+	// Process input for smooth movement
+	process_movement(data);
+	
 	// Update game state
 	update_game(data);
 	

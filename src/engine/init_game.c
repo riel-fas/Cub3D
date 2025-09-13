@@ -136,6 +136,14 @@ int	init_game(t_data *data)
 	// Set game state
 	data->game_running = TRUE;
 	
+	// Initialize key states
+	data->keys.w_pressed = 0;
+	data->keys.a_pressed = 0;
+	data->keys.s_pressed = 0;
+	data->keys.d_pressed = 0;
+	data->keys.left_pressed = 0;
+	data->keys.right_pressed = 0;
+	
 	printf("🎉 3D Engine initialized successfully!\n");
 	printf("🎮 Use WASD to move, mouse to look around, ESC to exit\n\n");
 	

@@ -99,31 +99,17 @@ int	load_single_texture(t_data *data, int index)
 {
 	char		*texture_names[] = {"North", "South", "West", "East"};
 	uint32_t	fallback_colors[] = {0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0xFFFF00FF};
-	char		*png_path;
-	int			path_len;
 	
 	printf("🖼️  Loading %s texture: %s\n", texture_names[index], 
 		   data->texture_paths[index]);
 	
-	// Convert .xpm path to .png path for MLX42
-	path_len = ft_strlen(data->texture_paths[index]);
-	png_path = malloc(path_len + 1);
-	if (!png_path)
-		return (FALSE);
-	
-	// Copy the path and change extension from .xpm to .png
-	strcpy(png_path, data->texture_paths[index]);
-	if (path_len > 4 && ft_strncmp(png_path + path_len - 4, ".xpm", 4) == 0)
-	{
-		strcpy(png_path + path_len - 4, ".png");
-	}
-	
-	data->textures[index].mlx_texture = mlx_load_png(png_path);
-	free(png_path);
+	// Load PNG texture directly with MLX42
+	data->textures[index].mlx_texture = mlx_load_png(data->texture_paths[index]);
 	
 	if (!data->textures[index].mlx_texture)
 	{
-		printf("⚠️  PNG texture not found, creating fallback colored texture\n");
+		printf("⚠️  PNG texture not found: %s\n", data->texture_paths[index]);
+		printf("⚠️  Creating fallback colored texture\n");
 		
 		// Create fallback colored texture
 		if (!create_fallback_texture(&data->textures[index], fallback_colors[index]))

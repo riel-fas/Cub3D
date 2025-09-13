@@ -1,4 +1,7 @@
-/* ************************************************************************** */
+/* *******************************************************************	// Validate .png extension
+	if (!validate_texture_extension(path))
+	{
+		printf("❌ Texture file must have .png extension: %s\n", path);*** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
@@ -36,7 +39,8 @@ static int	validate_texture_extension(char *path)
 	len = ft_strlen(path);
 	if (len < 4)
 		return (FALSE);
-	return (ft_strncmp(path + len - 4, ".xpm", 4) == 0);
+	return (ft_strncmp(path + len - 4, ".png", 4) == 0 || 
+			ft_strncmp(path + len - 4, ".PNG", 4) == 0);
 }
 
 static int	parse_texture_line(t_data *data, char *line)

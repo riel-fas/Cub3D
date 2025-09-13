@@ -75,54 +75,29 @@ void	rotate_player(t_data *data, double angle)
 void	handle_input(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
-	double	move_x;
-	double	move_y;
 
 	data = (t_data *)param;
 	
-	if (keydata.action != MLX_PRESS && keydata.action != MLX_REPEAT)
-		return;
-	
-	if (keydata.key == MLX_KEY_ESCAPE)
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		data->game_running = FALSE;
 		mlx_close_window(data->mlx);
 		return;
 	}
 	
-	// Movement
+	// Update key states for smooth movement
 	if (keydata.key == MLX_KEY_W)
-	{
-		move_x = data->player_dir_vec.x * MOVE_SPEED;
-		move_y = data->player_dir_vec.y * MOVE_SPEED;
-		move_player(data, move_x, move_y);
-	}
-	else if (keydata.key == MLX_KEY_S)
-	{
-		move_x = -data->player_dir_vec.x * MOVE_SPEED;
-		move_y = -data->player_dir_vec.y * MOVE_SPEED;
-		move_player(data, move_x, move_y);
-	}
+		data->keys.w_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
 	else if (keydata.key == MLX_KEY_A)
-	{
-		// Strafe left (perpendicular to direction)
-		move_x = -data->player_dir_vec.y * MOVE_SPEED;
-		move_y = data->player_dir_vec.x * MOVE_SPEED;
-		move_player(data, move_x, move_y);
-	}
+		data->keys.a_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
+	else if (keydata.key == MLX_KEY_S)
+		data->keys.s_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
 	else if (keydata.key == MLX_KEY_D)
-	{
-		// Strafe right (perpendicular to direction)
-		move_x = data->player_dir_vec.y * MOVE_SPEED;
-		move_y = -data->player_dir_vec.x * MOVE_SPEED;
-		move_player(data, move_x, move_y);
-	}
-	
-	// Rotation
-	if (keydata.key == MLX_KEY_LEFT)
-		rotate_player(data, -ROTATE_SPEED);
+		data->keys.d_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
+	else if (keydata.key == MLX_KEY_LEFT)
+		data->keys.left_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
 	else if (keydata.key == MLX_KEY_RIGHT)
-		rotate_player(data, ROTATE_SPEED);
+		data->keys.right_pressed = (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) ? 1 : 0;
 }
 
 void	handle_mouse(double xpos, double ypos, void *param)
@@ -147,9 +122,49 @@ void	handle_mouse(double xpos, double ypos, void *param)
 	last_x = xpos;
 	
 	// Convert mouse movement to rotation
-	rotation = delta_x * 0.001; // Sensitivity adjustment
+	rotation = delta_x * 0.002; // Sensitivity adjustment (increased for responsiveness)
 	
 	// Apply rotation
 	if (fabs(rotation) > 0.0001) // Ignore tiny movements
 		rotate_player(data, rotation);
+}
+
+void	process_movement(t_data *data)
+{
+	double	move_x;
+	double	move_y;
+
+	// Process movement based on key states
+	if (data->keys.w_pressed)
+	{
+		move_x = data->player_dir_vec.x * MOVE_SPEED;
+		move_y = data->player_dir_vec.y * MOVE_SPEED;
+		move_player(data, move_x, move_y);
+	}
+	if (data->keys.s_pressed)
+	{
+		move_x = -data->player_dir_vec.x * MOVE_SPEED;
+		move_y = -data->player_dir_vec.y * MOVE_SPEED;
+		move_player(data, move_x, move_y);
+	}
+	if (data->keys.a_pressed)
+	{
+		// Strafe left (perpendicular to direction)
+		move_x = data->player_dir_vec.y * MOVE_SPEED;
+		move_y = -data->player_dir_vec.x * MOVE_SPEED;
+		move_player(data, move_x, move_y);
+	}
+	if (data->keys.d_pressed)
+	{
+		// Strafe right (perpendicular to direction)
+		move_x = -data->player_dir_vec.y * MOVE_SPEED;
+		move_y = data->player_dir_vec.x * MOVE_SPEED;
+		move_player(data, move_x, move_y);
+	}
+	
+	// Process rotation
+	if (data->keys.left_pressed)
+		rotate_player(data, -ROTATE_SPEED);
+	if (data->keys.right_pressed)
+		rotate_player(data, ROTATE_SPEED);
 }

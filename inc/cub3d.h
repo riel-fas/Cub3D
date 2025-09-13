@@ -32,8 +32,8 @@
 
 /* Game settings */
 # define FOV 1.047198		// 60 degrees in radians (PI/3)
-# define MOVE_SPEED 1
-# define ROTATE_SPEED 0.5
+# define MOVE_SPEED 0.1
+# define ROTATE_SPEED 0.03
 # define TEXTURE_SIZE 64
 
 /* Math constants */
@@ -152,6 +152,16 @@ typedef struct s_data
 	/* Game state */
 	int			game_running;
 	
+	/* Input state for smooth movement */
+	struct {
+		int		w_pressed;
+		int		a_pressed;
+		int		s_pressed;
+		int		d_pressed;
+		int		left_pressed;
+		int		right_pressed;
+	}			keys;
+	
 	/* Parsing flags */
 	int			textures_parsed[4];	// Individual texture flags
 	int			colors_parsed[2];	// Floor and ceiling flags
@@ -209,6 +219,7 @@ uint32_t get_texture_pixel(t_data *data, t_ray *ray, int y);
 /* Input handling */
 void	handle_input(mlx_key_data_t keydata, void *param);
 void	handle_mouse(double xpos, double ypos, void *param);
+void	process_movement(t_data *data);
 void	move_player(t_data *data, double move_x, double move_y);
 void	rotate_player(t_data *data, double angle);
 
