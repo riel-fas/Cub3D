@@ -1,7 +1,7 @@
-NO ./textures/north_wall.xpm
-SO ./textures/south_wall.xpm
-WE ./textures/west_wall.xpm
-EA ./textures/east_wall.xpm
+NO ./textures/N/BRICK_2B.PNG
+SO ./textures/S/BRICK_3B 12.41.24 AM.PNG
+WE ./textures/W/BRICK_3D 12.41.24 AM 12.41.32 AM.PNG
+EA ./textures/E/BRICK_1A.PNG
 
 F 220,100,0
 C 225,30,0
