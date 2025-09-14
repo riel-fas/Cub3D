@@ -6,13 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:37 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-//helper function to open file and return file descriptor
+// Opens a file in read-only mode and returns the file descriptor
 static int	open_file(char *filename)
 {
 	int	fd;
@@ -23,7 +23,7 @@ static int	open_file(char *filename)
 	return (fd);
 }
 
-//helper function to read file content into a string
+// Reads entire file content into a dynamically allocated string
 static char	*read_file_content(int fd)
 {
 	char	buffer[BUFFER_SIZE];
@@ -52,7 +52,7 @@ static char	*read_file_content(int fd)
 	return (file_content);
 }
 
-//helper function to split content into lines and count them
+// Splits file content into lines and counts the total number of lines
 static char	**split_and_count_lines(char *file_content, int *line_count)
 {
 	char	**lines;
@@ -66,7 +66,7 @@ static char	**split_and_count_lines(char *file_content, int *line_count)
 	return (lines);
 }
 
-//reading the file lines 
+// Reads file and returns array of lines with line count
 static char	**read_file_lines(char *filename, int *line_count)
 {
 	int		fd;
@@ -81,7 +81,7 @@ static char	**read_file_lines(char *filename, int *line_count)
 	return (lines);
 }
 
-//those printf's are only for debug should be removed after that
+// Main parsing function that processes .cub file and validates all components
 int	parse_file(t_data *data, char *filename)
 {
 	printf("📖 Reading file: %s\n", filename);

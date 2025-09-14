@@ -6,22 +6,25 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:21 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:22:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Checks if a character represents a player direction (N, S, E, W)
 int	is_player_char(char c)
 {
 	return (c == NORTH || c == SOUTH || c == EAST || c == WEST);
 }
 
+// Checks if a character is valid for the map (walls, empty, space, or player)
 int	is_valid_char(char c)
 {
 	return (c == WALL || c == EMPTY || c == ' ' || is_player_char(c));
 }
 
+// Counts players in the map and sets player position data
 int	count_and_set_player(t_data *data)
 {
 	int	y;
@@ -51,6 +54,7 @@ int	count_and_set_player(t_data *data)
 	return (player_count);
 }
 
+// Validates that exactly one player exists in the map
 int	find_player_position(t_data *data)
 {
 	int	player_count;
@@ -69,6 +73,8 @@ int	find_player_position(t_data *data)
 	return (TRUE);
 }
 
+// Validates that all characters in the map are valid 
+// (walls, empty spaces, player)
 int	validate_characters(t_data *data)
 {
 	int	y;

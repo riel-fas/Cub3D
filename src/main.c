@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:39:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:58 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// Initializes all texture paths and color values to default states
 static void	init_textures_and_colors(t_data *data)
 {
 	int	i;
@@ -33,6 +34,7 @@ static void	init_textures_and_colors(t_data *data)
 	data->colors_parsed[1] = 0;
 }
 
+// Initializes map-related variables and player position to default values
 static void	init_map_and_player(t_data *data)
 {
 	data->map = NULL;
@@ -51,12 +53,14 @@ static void	init_map_and_player(t_data *data)
 	data->visited = NULL;
 }
 
+// Calls all initialization functions to set up the data structure
 static void	init_data(t_data *data)
 {
 	init_textures_and_colors(data);
 	init_map_and_player(data);
 }
 
+// Validates that the filename has the correct .cub extension
 static int	check_file_extension(char *filename)
 {
 	int	len;
@@ -71,7 +75,7 @@ static int	check_file_extension(char *filename)
 	return (TRUE);
 }
 
-// will be removeed after testing
+// Displays texture parsing status with visual indicators (debug function)
 static void	print_texture_status(t_data *data)
 {
 	int	total_textures;
@@ -92,7 +96,7 @@ static void	print_texture_status(t_data *data)
 		printf("❌\n");
 }
 
-// will be removeed after testing
+// Displays color parsing status with visual indicators (debug function)
 static void	print_color_status(t_data *data)
 {
 	printf("🎨 Colors: %d/2 ", data->colors_parsed[0] + data->colors_parsed[1]);
@@ -102,7 +106,7 @@ static void	print_color_status(t_data *data)
 		printf("❌\n");
 }
 
-// will be removeed after testing
+// Prints comprehensive summary of parsing results (debug function)
 static void	print_parsing_summary(t_data *data)
 {
 	char	*filename;
@@ -122,6 +126,7 @@ static void	print_parsing_summary(t_data *data)
 	printf("========================\n\n");
 }
 
+// Main program entry point - handles argument validation and file parsing
 int	main(int argc, char **argv)
 {
 	t_data	data;

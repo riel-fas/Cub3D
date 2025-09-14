@@ -6,17 +6,19 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:05:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:41:14 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Checks if a character is a whitespace character
 static int	is_whitespace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
 }
 
+// Finds the starting index after leading whitespace
 static int	find_trim_start(char *str)
 {
 	int	start;
@@ -27,6 +29,7 @@ static int	find_trim_start(char *str)
 	return (start);
 }
 
+// Finds the ending index before trailing whitespace
 static int	find_trim_end(char *str, int start)
 {
 	int	end;
@@ -37,6 +40,7 @@ static int	find_trim_end(char *str, int start)
 	return (end);
 }
 
+// Creates a new string from the trimmed portion of the original string
 static char	*create_trimmed_string(char *str, int start, int len)
 {
 	char	*trimmed;
@@ -62,6 +66,7 @@ static char	*create_trimmed_string(char *str, int start, int len)
 	return (trimmed);
 }
 
+// Trims leading and trailing whitespace from a string
 char	*ft_strtrim(char *str)
 {
 	int	start;

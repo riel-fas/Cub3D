@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:34:47 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:33 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Gets a trimmed version of a line from the file lines array
 char	*get_trimmed_line(char **file_lines, int index)
 {
 	char	*trimmed_line;
@@ -20,6 +21,7 @@ char	*get_trimmed_line(char **file_lines, int index)
 	return (trimmed_line);
 }
 
+// Handles the result of line processing and manages memory cleanup
 int	handle_line_processing_result(int result, char *trimmed_line)
 {
 	if (result == FALSE)
@@ -36,6 +38,7 @@ int	handle_line_processing_result(int result, char *trimmed_line)
 	return (TRUE);
 }
 
+// Processes a single line with proper memory cleanup and special case handling
 int	process_single_line_with_cleanup(t_data *data, char *trimmed_line)
 {
 	int	result;

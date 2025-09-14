@@ -6,13 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:48:54 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:54 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-// Assign RGB values to color struct
+// Assigns RGB values from array to color structure
 static void	assign_rgb_values(t_color *color, int values[3])
 {
 	color->r = values[0];
@@ -20,7 +20,7 @@ static void	assign_rgb_values(t_color *color, int values[3])
 	color->b = values[2];
 }
 
-// Parse and validate a single RGB value (0-255)
+// Parses and validates a single RGB value ensuring it's within 0-255 range
 static int	parse_single_rgb_value(char *rgb_str, int *value)
 {
 	char	*trimmed;
@@ -35,7 +35,7 @@ static int	parse_single_rgb_value(char *rgb_str, int *value)
 	return (TRUE);
 }
 
-// Validate that RGB string has exactly 3 components
+// Validates that RGB string contains exactly 3 comma-separated components
 static int	validate_rgb_count(char **rgb_split)
 {
 	int	i;
@@ -46,8 +46,7 @@ static int	validate_rgb_count(char **rgb_split)
 	return (i == 3);
 }
 
-// Count elements
-// Parse and validate RGB values
+// Parses RGB string into color structure with validation
 int	parse_rgb_values(char *rgb_str, t_color *color)
 {
 	char	**rgb_split;

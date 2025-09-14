@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:14 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:22 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Iterates through file lines processing textures and colors until map is found
 int	iterate_through_lines(t_data *data)
 {
 	int		i;
@@ -39,11 +40,13 @@ int	iterate_through_lines(t_data *data)
 	return (TRUE);
 }
 
+// Wrapper function that processes lines until map section is reached
 int	process_lines_until_map(t_data *data)
 {
 	return (iterate_through_lines(data));
 }
 
+// Main function that parses all textures and colors from the file
 int	parse_textures_and_colors(t_data *data)
 {
 	if (!process_lines_until_map(data))

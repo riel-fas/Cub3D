@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:41 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Processes a single map line and adds it to the map array
 int	process_map_line_index(t_data *data, int file_index, int *map_index)
 {
 	char	*trimmed_line;
@@ -31,6 +32,7 @@ int	process_map_line_index(t_data *data, int file_index, int *map_index)
 	return (TRUE);
 }
 
+// Iterates through file lines and populates the map array
 int	populate_map_data(t_data *data, int map_start)
 {
 	int	i;
@@ -48,6 +50,7 @@ int	populate_map_data(t_data *data, int map_start)
 	return (TRUE);
 }
 
+// Main map parsing function that coordinates map initialization and population
 int	parse_map(t_data *data)
 {
 	int	map_start;

@@ -6,13 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:21:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-//checks which type of texture n , s, w, e
+// Identifies texture type (NO, SO, WE, EA) from line content
 int	get_texture_type(char *line)
 {
 	if (!line)
@@ -28,7 +28,7 @@ int	get_texture_type(char *line)
 	return (-1);
 }
 
-//checks if the texture is .png or not
+// Validates that texture file has .png or .PNG extension
 int	validate_texture_extension(char *path)
 {
 	int	len;

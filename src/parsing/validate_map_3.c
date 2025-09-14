@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:34:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:26 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:22:33 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Checks that the top and bottom borders of the map are properly closed
 int	check_horizontal_borders(t_data *data)
 {
 	int	x;
@@ -35,6 +36,7 @@ int	check_horizontal_borders(t_data *data)
 	return (TRUE);
 }
 
+// Checks that the left and right borders of the map are properly closed
 int	check_vertical_borders(t_data *data)
 {
 	int	y;
@@ -58,6 +60,7 @@ int	check_vertical_borders(t_data *data)
 	return (TRUE);
 }
 
+// Validates that all map borders are properly closed with walls or spaces
 int	check_map_borders(t_data *data)
 {
 	printf("🔒 Checking map borders...\n");
@@ -69,6 +72,8 @@ int	check_map_borders(t_data *data)
 	return (TRUE);
 }
 
+// Checks if an empty space is connecting 
+// to the map border through adjacent spaces
 int	is_space_connecting_to_border(t_data *data, int x, int y)
 {
 	if ((x > 0 && data->map[y][x - 1] == ' ')
@@ -86,6 +91,7 @@ int	is_space_connecting_to_border(t_data *data, int x, int y)
 	return (FALSE);
 }
 
+// Validates that no empty spaces connect to map borders through adjacent spaces
 int	check_empty_spaces_near_borders(t_data *data)
 {
 	int	x;

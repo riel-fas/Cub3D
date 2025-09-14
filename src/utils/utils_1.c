@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 03:37:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:41:01 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Counts the number of words separated by a specific delimiter
 int	count_words_internal(char *str, char delimiter)
 {
 	int	count;
@@ -35,12 +36,14 @@ int	count_words_internal(char *str, char delimiter)
 	return (count);
 }
 
+// Checks if a character is a whitespace character
 int	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\r' || c == '\f' || c == '\v');
 }
 
+// Finds the first occurrence of character c in string str
 char	*ft_strchr(char *str, char c)
 {
 	int	i;

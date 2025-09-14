@@ -6,14 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:48:21 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:50 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-//the function ensures that a given string line is padded 
-//with spaces at the end so that its total length matches target_width
+// Pads a map line with spaces to reach the target width for uniform map size
 char	*pad_map_line(char *line, int target_width)
 {
 	char	*padded_line;
@@ -39,6 +38,7 @@ char	*pad_map_line(char *line, int target_width)
 	return (padded_line);
 }
 
+// Initializes map data by finding start position and calculating dimensions
 int	initialize_map_data(t_data *data, int *map_start)
 {
 	int	map_line_count;
@@ -67,6 +67,7 @@ int	initialize_map_data(t_data *data, int *map_start)
 	return (TRUE);
 }
 
+// Allocates memory for the map array based on calculated height
 int	allocate_map_memory(t_data *data)
 {
 	data->map = malloc(sizeof(char *) * (data->map_height + 1));
@@ -78,6 +79,7 @@ int	allocate_map_memory(t_data *data)
 	return (TRUE);
 }
 
+// Processes a single map line, trimming whitespace and handling empty lines
 char	*process_map_line(char *file_line)
 {
 	char	*trimmed_line;
@@ -96,6 +98,7 @@ char	*process_map_line(char *file_line)
 	return (trimmed_line);
 }
 
+// Adds a processed and padded line to the map array at the specified index
 int	add_line_to_map(t_data *data, char *trimmed_line, int map_index)
 {
 	char	*padded_line;

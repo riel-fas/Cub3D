@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:40:05 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:40:53 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Frees a null-terminated array of strings
 void	free_split(char **split)
 {
 	int	i;
@@ -27,6 +28,7 @@ void	free_split(char **split)
 	free(split);
 }
 
+// Frees all allocated texture path strings
 static void	free_texture_paths(t_data *data)
 {
 	int	i;
@@ -43,6 +45,7 @@ static void	free_texture_paths(t_data *data)
 	}
 }
 
+// Frees the 2D map array and all its rows
 static void	free_map_data(t_data *data)
 {
 	int	i;
@@ -60,6 +63,7 @@ static void	free_map_data(t_data *data)
 	}
 }
 
+// Main cleanup function that frees all allocated memory in the data structure
 void	free_data(t_data *data)
 {
 	if (!data)

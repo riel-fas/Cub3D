@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:06:26 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:41:23 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Calculates the length of a string
 int	ft_strlen(char *str)
 {
 	int	len;
@@ -24,6 +25,7 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
+// Creates a duplicate copy of a string
 char	*ft_strdup(char *str)
 {
 	char	*dup;
@@ -46,6 +48,7 @@ char	*ft_strdup(char *str)
 	return (dup);
 }
 
+// Compares two strings up to n characters
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -60,11 +63,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+// Checks if a character is a digit (0-9)
 int	ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
+// Converts a string to an integer with sign handling
 int	ft_atoi(char *str)
 {
 	int	result;

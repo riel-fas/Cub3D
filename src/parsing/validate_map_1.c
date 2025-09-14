@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:15 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Recursively fills reachable areas starting from player position
 void	flood_fill(char **map_copy, int x, int y, t_data *data)
 {
 	if (x < 0 || x >= data->map_width || y < 0 || y >= data->map_height)
@@ -26,6 +27,7 @@ void	flood_fill(char **map_copy, int x, int y, t_data *data)
 	flood_fill(map_copy, x, y - 1, data);
 }
 
+// Creates a copy of the map and performs flood fill from player position
 char	**create_and_flood_fill_map(t_data *data)
 {
 	char	**map_copy;
@@ -51,6 +53,7 @@ char	**create_and_flood_fill_map(t_data *data)
 	return (map_copy);
 }
 
+// Validates that all walkable areas are reachable from player position
 int	validate_flood_fill_result(t_data *data, char **map_copy)
 {
 	int		y;
@@ -75,6 +78,7 @@ int	validate_flood_fill_result(t_data *data, char **map_copy)
 	return (TRUE);
 }
 
+// Coordinates flood fill validation and manages memory cleanup
 int	flood_fill_validation(t_data *data)
 {
 	char	**map_copy;
@@ -95,6 +99,7 @@ int	flood_fill_validation(t_data *data)
 	return (result);
 }
 
+// Main validation function that runs all map validation checks
 int	validate_map(t_data *data)
 {
 	if (!validate_characters(data))

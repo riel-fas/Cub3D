@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:45:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:45 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Checks if a line contains configuration data (textures or colors)
 int	is_config_line(char *trimmed_line)
 {
 	if (ft_strncmp(trimmed_line, "NO ", 3) == 0
@@ -24,6 +25,7 @@ int	is_config_line(char *trimmed_line)
 	return (FALSE);
 }
 
+// Determines if a line should be skipped during map parsing
 int	should_skip_line(char *trimmed_line)
 {
 	if (trimmed_line[0] == '\0' || trimmed_line[0] == '#')
@@ -33,8 +35,7 @@ int	should_skip_line(char *trimmed_line)
 	return (FALSE);
 }
 
-// Skip empty lines and comments
-// Skip texture and color lines
+// Finds the starting line index of the map data in the file
 int	find_map_start(t_data *data)
 {
 	int		i;
@@ -58,6 +59,7 @@ int	find_map_start(t_data *data)
 	return (-1);
 }
 
+// Counts the number of non-empty lines in the map section
 int	count_map_lines(t_data *data, int start)
 {
 	int		count;
@@ -79,6 +81,7 @@ int	count_map_lines(t_data *data, int start)
 	return (count);
 }
 
+// Calculates the maximum width needed for the map
 int	get_map_width(t_data *data, int start)
 {
 	int		max_width;

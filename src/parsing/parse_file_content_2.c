@@ -6,17 +6,19 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:33:49 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:44:29 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:22:18 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Checks if a line is empty or a comment (starts with #)
 int	is_empty_or_comment(char *line)
 {
 	return (line[0] == '\0' || line[0] == '#');
 }
 
+// Checks if a line contains texture information (NO, SO, WE, EA)
 int	is_texture_line(char *line)
 {
 	return (ft_strncmp(line, "NO ", 3) == 0
@@ -25,12 +27,15 @@ int	is_texture_line(char *line)
 		|| ft_strncmp(line, "EA ", 3) == 0);
 }
 
+// Checks if a line contains color information (F or C)
 int	is_color_line(char *line)
 {
 	return (ft_strncmp(line, "F ", 2) == 0
 		|| ft_strncmp(line, "C ", 2) == 0);
 }
 
+// Processes a single line by determining its type 
+// and calling appropriate parser
 int	process_single_line(t_data *data, char *trimmed_line)
 {
 	if (is_texture_line(trimmed_line))
@@ -48,6 +53,7 @@ int	process_single_line(t_data *data, char *trimmed_line)
 	return (TRUE);
 }
 
+// Validates that all required textures and colors have been parsed
 int	validate_parsing_completeness(t_data *data)
 {
 	int	total_textures;

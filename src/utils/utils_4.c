@@ -6,12 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 04:07:02 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:41:27 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+// Extracts a single word from string starting at index position
 static char	*extract_word(char *str, int *index, char delimiter)
 {
 	int		start;
@@ -40,6 +41,7 @@ static char	*extract_word(char *str, int *index, char delimiter)
 	return (word);
 }
 
+// Frees partially allocated split result array in case of error
 static void	free_split_result(char **result, int up_to_index)
 {
 	while (--up_to_index >= 0)
@@ -47,6 +49,7 @@ static void	free_split_result(char **result, int up_to_index)
 	free(result);
 }
 
+// Allocates memory for the split result array
 static char	**allocate_split_array(int word_count)
 {
 	char	**result;
@@ -55,6 +58,7 @@ static char	**allocate_split_array(int word_count)
 	return (result);
 }
 
+// Fills the split array with extracted words from the string
 static char	**fill_split_array(char *str, char delimiter, int word_count)
 {
 	char	**result;
@@ -80,6 +84,7 @@ static char	**fill_split_array(char *str, char delimiter, int word_count)
 	return (result);
 }
 
+// Splits a string into an array of words separated by delimiter
 char	**ft_split(char *str, char delimiter)
 {
 	int	word_count;
