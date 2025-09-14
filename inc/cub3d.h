@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 05:39:58 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:02:16 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,42 @@ int	count_words_internal(char *str, char delimiter);
 int		main(int argc, char **argv);
 int		validate_args(int argc, char **argv);
 
-
 /* Parsing */
 int		parse_file(t_data *data, char *filename);
 int		parse_textures_and_colors(t_data *data);
 int		parse_map(t_data *data);
 int		validate_map(t_data *data);
+
+/* File content parsing */
+int		iterate_through_lines(t_data *data);
+int		process_lines_until_map(t_data *data);
+int		is_empty_or_comment(char *line);
+int		process_single_line(t_data *data, char *trimmed_line);
+int		validate_parsing_completeness(t_data *data);
+int		handle_line_processing_result(int result, char *trimmed_line);
+int		process_single_line_with_cleanup(t_data *data, char *trimmed_line);
+char	*get_trimmed_line(char **file_lines, int index);
+
+/* Texture parsing */
+int		get_texture_type(char *line);
+int		validate_texture_extension(char *path);
+int		parse_texture_line(t_data *data, char *line);
+
+/* RGB/Color parsing */
+int		parse_rgb_values(char *rgb_str, t_color *color);
+int		parse_color_line(t_data *data, char *line);
+
+/* Map parsing */
+int		process_map_line_index(t_data *data, int file_index, int *map_index);
+int		populate_map_data(t_data *data, int map_start);
+int		is_config_line(char *trimmed_line);
+int		should_skip_line(char *trimmed_line);
+int		find_map_start(t_data *data);
+int		count_map_lines(t_data *data, int start);
+int		get_map_width(t_data *data, int start);
+int		initialize_map_data(t_data *data, int *map_start);
+int		allocate_map_memory(t_data *data);
+int		add_line_to_map(t_data *data, char *trimmed_line, int map_index);
 
 /* Parsing utils */
 int		is_texture_line(char *line);
@@ -152,6 +182,29 @@ int		check_walls(t_data *data);
 int		find_player(t_data *data);
 int		flood_fill_check(t_data *data);
 int		validate_map_format(t_data *data);
+
+/* Flood fill validation */
+void	flood_fill(char **map_copy, int x, int y, t_data *data);
+int		validate_flood_fill_result(t_data *data, char **map_copy);
+int		flood_fill_validation(t_data *data);
+
+/* Player validation */
+int		is_player_char(char c);
+int		is_valid_char(char c);
+int		count_and_set_player(t_data *data);
+int		find_player_position(t_data *data);
+int		validate_characters(t_data *data);
+
+/* Border validation */
+int		check_horizontal_borders(t_data *data);
+int		check_vertical_borders(t_data *data);
+int		check_map_borders(t_data *data);
+int		is_space_connecting_to_border(t_data *data, int x, int y);
+int		check_empty_spaces_near_borders(t_data *data);
+
+/* Wall validation */
+int		is_surrounded_by_walls(t_data *data, int x, int y);
+int		validate_walls(t_data *data);
 
 /* Advanced validation */
 int		check_empty_lines_in_map(t_data *data);
@@ -176,26 +229,8 @@ void	error_exit(char *message);
 void	free_data(t_data *data);
 void	free_split(char **split);
 
+/* Additional map helper functions */
 char	*pad_map_line(char *line, int target_width);
-int	initialize_map_data(t_data *data, int *map_start);
-int	allocate_map_memory(t_data *data);
 char	*process_map_line(char *file_line);
-int	add_line_to_map(t_data *data, char *trimmed_line, int map_index);
-int	is_config_line(char *trimmed_line);
-int	should_skip_line(char *trimmed_line);
-int	find_map_start(t_data *data);
-int	count_map_lines(t_data *data, int start);
-int	get_map_width(t_data *data, int start);
-int	process_single_line(t_data *data, int file_index, int *map_index);
-int	populate_map_data(t_data *data, int map_start);
-
-
-
-
-
-
-
-
-
 
 #endif

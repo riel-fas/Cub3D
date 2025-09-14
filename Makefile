@@ -31,9 +31,20 @@ LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -
 SRCS					= \
 	src/main.c \
 	src/parsing/parse_file.c \
-	src/parsing/parse_textures.c \
-	src/parsing/parse_map.c \
-	src/parsing/validate_map.c \
+	src/parsing/parse_file_content_1.c \
+	src/parsing/parse_file_content_2.c \
+	src/parsing/parse_file_content_3.c \
+	src/parsing/parse_map_1.c \
+	src/parsing/parse_map_2.c \
+	src/parsing/parse_map_3.c \
+	src/parsing/parse_rgb_1.c \
+	src/parsing/parse_rgb_3.c \
+	src/parsing/parse_textures_1.c \
+	src/parsing/parse_textures_2.c \
+	src/parsing/validate_map_1.c \
+	src/parsing/validate_map_2.c \
+	src/parsing/validate_map_3.c \
+	src/parsing/validate_map_4.c \
 	src/utils/error.c \
 	src/utils/utils_1.c \
 	src/utils/utils_2.c \

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:45:15 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:03:54 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static char	*read_file_content(int fd)
 			file_content[0] = '\0';
 		strcat(file_content, buffer);
 		total_size += bytes_read;
+		bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
 	}
 	return (file_content);
 }

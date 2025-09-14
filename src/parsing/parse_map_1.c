@@ -6,13 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 05:37:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:02:16 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	process_single_line(t_data *data, int file_index, int *map_index)
+int	process_map_line_index(t_data *data, int file_index, int *map_index)
 {
 	char	*trimmed_line;
 
@@ -40,7 +40,7 @@ int	populate_map_data(t_data *data, int map_start)
 	map_index = 0;
 	while (i < data->line_count && map_index < data->map_height)
 	{
-		if (!process_single_line(data, i, &map_index))
+		if (!process_map_line_index(data, i, &map_index))
 			return (FALSE);
 		i++;
 	}
