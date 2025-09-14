@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:48:21 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:49:28 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:50 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 //the function ensures that a given string line is padded 
 //with spaces at the end so that its total length matches target_width

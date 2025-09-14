@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:36:49 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:20:30 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 // Check for duplicate texture and store texture data
 static int	store_texture_data(t_data *data, char *path, int type)

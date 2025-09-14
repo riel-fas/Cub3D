@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:02:16 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:41 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	process_map_line_index(t_data *data, int file_index, int *map_index)
 {

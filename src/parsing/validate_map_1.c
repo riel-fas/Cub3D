@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:49:37 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:15 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 void	flood_fill(char **map_copy, int x, int y, t_data *data)
 {

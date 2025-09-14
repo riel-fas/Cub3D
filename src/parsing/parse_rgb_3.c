@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:26:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:13:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 // Check if color already set
 // Skip spaces

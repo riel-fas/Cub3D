@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:48:54 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:42:51 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:54 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 // Assign RGB values to color struct
 static void	assign_rgb_values(t_color *color, int values[3])

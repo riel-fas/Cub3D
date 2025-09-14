@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 00:31:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:53:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:31 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 static void	init_directions(int dx[4], int dy[4])
 {

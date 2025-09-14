@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:34:47 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:41:14 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:33 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 char	*get_trimmed_line(char **file_lines, int index)
 {

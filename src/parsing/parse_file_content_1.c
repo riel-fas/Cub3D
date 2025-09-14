@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:14 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 22:37:32 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:22 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	iterate_through_lines(t_data *data)
 {

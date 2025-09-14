@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 00:39:19 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:21 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	is_player_char(char c)
 {

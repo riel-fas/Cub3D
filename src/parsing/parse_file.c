@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:58:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:03:54 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:44:37 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 //helper function to open file and return file descriptor
 static int	open_file(char *filename)

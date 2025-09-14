@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:21:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 23:07:27 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:45:07 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 //checks which type of texture n , s, w, e
 int	get_texture_type(char *line)
