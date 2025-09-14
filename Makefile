@@ -8,7 +8,6 @@ PURPLE	= \033[0;35m
 NC		= \033[0m # No Color
 
 NAME					= cub3D
-BONUS					= cub3D_bonus
 
 CC						= cc
 CFLAGS					= -Wall -Wextra -Werror -g
@@ -22,9 +21,9 @@ GLFW_INCLUDE			= $(HOME)/.brew/include
 GLFW_LIB				= $(HOME)/.brew/lib
 
 HEADERS					= -I ./inc -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
+
 HEADER_FILES			= inc/cub3d.h
 
-# LIBS					= 
 LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -framework Cocoa
 
 
@@ -54,14 +53,7 @@ SRCS					= \
 
 OBJS					= ${SRCS:.c=.o}
 
-# # Bonus source files (placeholder for future bonus features)
-# SRCS_BONUS				= \
-
-# OBJS_BONUS				= ${SRCS_BONUS:.c=.o}
-
 all	:	banner $(NAME)
-
-# bonus: banner $(BONUS)
 
 banner:
 	@printf "${BLUE}╔════════════════════════════════════════════════════════════════════════════════════╗${NC}\n"
@@ -91,12 +83,6 @@ $(NAME): compile_msg $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@printf "${GREEN}✅ $(NAME) successfully compiled!${NC}\n"
 	@printf "${CYAN}🚀 Ready to explore the 3D world!${NC}\n"
-
-# $(BONUS): compile_msg $(OBJS_BONUS)
-# 	@printf "${GREEN}🔗 Linking objects to create $(BONUS)...${NC}\n"
-# 	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBS) -o $(BONUS)
-# 	@printf "${GREEN}✅ $(BONUS) successfully compiled!${NC}\n"
-# 	@printf "${CYAN}🚀 Ready to explore the 3D world with bonus features!${NC}\n"
 
 %.o: %.c $(HEADER_FILES)
 	@printf "${GREEN}🔨 Compiling $<...${NC}\n"
@@ -152,3 +138,13 @@ re: fclean all
 # 	@printf "${YELLOW}  help${NC}     - Show this help message\n"
 
 # debug test norm help compile_msg
+
+
+
+
+
+# $(BONUS): compile_msg $(OBJS_BONUS)
+# 	@printf "${GREEN}🔗 Linking objects to create $(BONUS)...${NC}\n"
+# 	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBS) -o $(BONUS)
+# 	@printf "${GREEN}✅ $(BONUS) successfully compiled!${NC}\n"
+# 	@printf "${CYAN}🚀 Ready to explore the 3D world with bonus features!${NC}\n"

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:02:16 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:38:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@
 # define FALSE 0
 
 /* Window settings */
+# define TEXTURE_SIZE 64
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 750
 # define WINDOW_TITLE "Cub3D"
-
-// # define MOVE_SPEED 0.1
-// # define ROTATE_SPEED 0.03
-# define TEXTURE_SIZE 64
 
 /* Error messages */
 # define ERR_ARGS "Error\nUsage: ./cub3D <map.cub>\n"

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:39:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/13 20:39:39 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/14 01:42:28 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	check_file_extension(char *filename)
 	return (TRUE);
 }
 
-//will be removeed after testing
+// will be removeed after testing
 static void	print_texture_status(t_data *data)
 {
 	int	total_textures;
@@ -92,7 +92,7 @@ static void	print_texture_status(t_data *data)
 		printf("❌\n");
 }
 
-//will be removeed after testing
+// will be removeed after testing
 static void	print_color_status(t_data *data)
 {
 	printf("🎨 Colors: %d/2 ", data->colors_parsed[0] + data->colors_parsed[1]);
@@ -102,7 +102,7 @@ static void	print_color_status(t_data *data)
 		printf("❌\n");
 }
 
-//will be removeed after testing
+// will be removeed after testing
 static void	print_parsing_summary(t_data *data)
 {
 	char	*filename;
