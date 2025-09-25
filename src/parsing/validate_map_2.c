@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:14:39 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	count_and_set_player(t_data *data)
 				data->player_y = (float)y + 0.5f;
 				data->player_dir = data->map[y][x];
 				player_count++;
-				printf("🎯 Player found at (%d, %d) facing %c\n",
-					x, y, data->player_dir);
 			}
 			x++;
 		}

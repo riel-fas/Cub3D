@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:48:21 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 16:28:36 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:15:39 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ char	*process_map_line(char *file_line)
 {
 	char	*line_copy;
 	int		len;
+	int		x;
 
+	x = 0;
 	if (!file_line)
 		return (NULL);
 	len = ft_strlen(file_line);
@@ -97,16 +99,18 @@ char	*process_map_line(char *file_line)
 		return ((char *)-1);
 	ft_strncpy(line_copy, file_line, len);
 	line_copy[len] = '\0';
-	for (int i = 0; i < len; i++)
+	while (x < len)
 	{
-		if (file_line[i] != ' ' && file_line[i] != '\t')
+		if (file_line[x] != ' ' && file_line[x] != '\t')
 			return (line_copy);
+		x++;
 	}
 	free(line_copy);
 	return (NULL);
 }
 
-// Adds a processed line to the map array at the specified index (without padding)
+// Adds a processed line to 
+// lthe map array at the specified index (without padding)
 int	add_line_to_map(t_data *data, char *trimmed_line, int map_index)
 {
 	data->map[map_index] = ft_strdup(trimmed_line);

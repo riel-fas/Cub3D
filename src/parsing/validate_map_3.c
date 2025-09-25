@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:34:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:20:27 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,21 @@ int	check_horizontal_borders(t_data *data)
 	int	top_len;
 	int	bottom_len;
 
-	// Check top border
 	top_len = ft_strlen(data->map[0]);
 	x = 0;
 	while (x < top_len)
 	{
 		if (data->map[0][x] != WALL && data->map[0][x] != ' ')
-		{
-			printf("❌ Map not closed(%d, 0)\n", x);
 			return (FALSE);
-		}
 		x++;
 	}
-	// Check bottom border
 	bottom_len = ft_strlen(data->map[data->map_height - 1]);
 	x = 0;
 	while (x < bottom_len)
 	{
 		if (data->map[data->map_height - 1][x] != WALL &&
 			data->map[data->map_height - 1][x] != ' ')
-		{
-			printf("❌ Map not closed(%d, %d)\n", x, data->map_height - 1);
 			return (FALSE);
-		}
 		x++;
 	}
 	return (TRUE);
@@ -60,21 +52,13 @@ int	check_vertical_borders(t_data *data)
 		if (line_len == 0)
 		{
 			y++;
-			continue;
+			continue ;
 		}
-		// Check left border
 		if (data->map[y][0] != WALL && data->map[y][0] != ' ')
-		{
-			printf("❌ Map not closed(0, %d)\n", y);
 			return (FALSE);
-		}
-		// Check right border (end of actual line, not padded width)
 		if (data->map[y][line_len - 1] != WALL &&
 			data->map[y][line_len - 1] != ' ')
-		{
-			printf("❌ Map not closed(%d, %d)\n", line_len - 1, y);
 			return (FALSE);
-		}
 		y++;
 	}
 	return (TRUE);
@@ -96,25 +80,24 @@ int	check_map_borders(t_data *data)
 // to the map border through adjacent spaces
 int	is_space_connecting_to_border(t_data *data, int x, int y)
 {
-	int	line_len = ft_strlen(data->map[y]);
-	
-	// Check if this position is at the edge of the actual map content
+	int	line_len;
+
+	line_len = ft_strlen(data->map[y]);
 	if (x == 0 || x == line_len - 1 || y == 0 || y == data->map_height - 1)
 	{
 		printf("❌ Empty space at border at (%d, %d)\n", x, y);
 		return (TRUE);
 	}
-	
-	// Check adjacent positions for spaces that could lead to borders
 	if ((x > 0 && data->map[y][x - 1] == ' ')
 		|| (x < line_len - 1 && data->map[y][x + 1] == ' ')
-		|| (y > 0 && x < (int)ft_strlen(data->map[y - 1]) && data->map[y - 1][x] == ' ')
-		|| (y < data->map_height - 1 && x < (int)ft_strlen(data->map[y + 1]) && data->map[y + 1][x] == ' '))
+		|| (y > 0 && x < (int)ft_strlen(data->map[y - 1])
+			&& data->map[y - 1][x] == ' ')
+		|| (y < data->map_height - 1 && x < (int)ft_strlen(data->map[y + 1])
+			&& data->map[y + 1][x] == ' '))
 	{
-		// If adjacent to a space, check if we're near a border
 		if (x <= 1 || x >= line_len - 2 || y <= 1 || y >= data->map_height - 2)
 		{
-			printf("❌ Empty space connects to border through space at (%d, %d)\n", x, y);
+			printf("❌ Empty space at (%d, %d)\n", x, y);
 			return (TRUE);
 		}
 	}

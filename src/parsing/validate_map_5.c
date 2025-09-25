@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:10:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:12:14 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 // Check vertical boundaries (similar to reference implementation)
 int	check_directions_ver(t_data *data, int x, int y)
 {
-	// Check if position above is out of bounds or invalid
 	if (y - 1 >= 0 && x >= (int)ft_strlen(data->map[y - 1]))
 		return (FALSE);
-	else if (y + 1 < data->map_height 
+	else if (y + 1 < data->map_height
 		&& x >= (int)ft_strlen(data->map[y + 1]))
 		return (FALSE);
 	else if (y - 1 >= 0
@@ -41,8 +40,9 @@ int	check_directions_ver(t_data *data, int x, int y)
 // Check horizontal boundaries (similar to reference implementation)
 int	check_directions_hor(t_data *data, int x, int y)
 {
-	int line_len = ft_strlen(data->map[y]);
-	
+	int	line_len;
+
+	line_len = ft_strlen(data->map[y]);
 	if (x - 1 >= 0 && data->map[y][x - 1] != '0'
 		&& data->map[y][x - 1] != '1'
 		&& !is_player_char(data->map[y][x - 1]))
@@ -60,9 +60,11 @@ int	check_directions_hor(t_data *data, int x, int y)
 // Check a single line of the map (similar to reference implementation)
 int	check_line(t_data *data, int y)
 {
-	int x = 0;
-	int line_len = ft_strlen(data->map[y]);
-	
+	int	x;
+	int	line_len;
+
+	x = 0;
+	line_len = ft_strlen(data->map[y]);
 	while (x < line_len)
 	{
 		if ((y == 0 || x == 0)
@@ -86,8 +88,9 @@ int	check_line(t_data *data, int y)
 // Main map validation function (similar to reference implementation)
 int	validate_map_boundaries(t_data *data)
 {
-	int y = 0;
-	
+	int	y;
+
+	y = 0;
 	printf("🧱 Validating map boundaries (reference-style)...\n");
 	while (y < data->map_height)
 	{

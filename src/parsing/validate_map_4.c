@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 00:31:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:24:28 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_directions(int dx[4], int dy[4])
 static int	check_adjacent_spaces(t_data *data, int nx, int ny)
 {
 	int	line_len;
-	
+
 	if (ny < 0 || ny >= data->map_height)
 		return (FALSE);
 	line_len = ft_strlen(data->map[ny]);
@@ -47,23 +47,16 @@ int	is_surrounded_by_walls(t_data *data, int x, int y)
 	int	dx[4];
 	int	dy[4];
 	int	i;
-	int	nx;
-	int	ny;
 	int	line_len;
 
 	init_directions(dx, dy);
-	i = 0;
 	line_len = ft_strlen(data->map[y]);
-	
-	// Check if we're at the border of the actual map content
 	if (x == 0 || x == line_len - 1 || y == 0 || y == data->map_height - 1)
 		return (data->map[y][x] == WALL);
-	
+	i = 0;
 	while (i < 4)
 	{
-		nx = x + dx[i];
-		ny = y + dy[i];
-		if (!check_adjacent_spaces(data, nx, ny))
+		if (!check_adjacent_spaces(data, x + dx[i], y + dy[i]))
 			return (FALSE);
 		i++;
 	}
@@ -77,7 +70,6 @@ int	validate_walls(t_data *data)
 	int	line_len;
 
 	y = 0;
-	printf("🧱 Validating walls...\n");
 	while (y < data->map_height)
 	{
 		x = 0;

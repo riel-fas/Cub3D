@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:17:53 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:50:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // Recursively fills reachable areas starting from player position
 void	flood_fill(char **map_copy, int x, int y, t_data *data)
 {
-	// Check bounds dynamically for non-rectangular maps
 	if (y < 0 || y >= data->map_height || x < 0)
 		return ;
 	if (x >= (int)ft_strlen(map_copy[y]))
@@ -104,7 +103,8 @@ int	flood_fill_validation(t_data *data)
 	return (result);
 }
 
-// Main validation function that runs all map validation checks (reference-style)
+// Main validation function that runs all 
+//map validation checks (reference-style)
 int	validate_map(t_data *data)
 {
 	if (!validate_characters(data))

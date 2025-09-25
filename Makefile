@@ -50,6 +50,7 @@ SRCS					= \
 	src/utils/utils_2.c \
 	src/utils/utils_3.c \
 	src/utils/utils_4.c \
+	src/utils/utils_5.c \
 	src/utils/free.c
 
 OBJS					= ${SRCS:.c=.o}

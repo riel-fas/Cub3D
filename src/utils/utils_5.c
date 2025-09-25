@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 03:37:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 18:32:45 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/09/25 18:31:20 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/09/25 18:32:52 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-// Counts the number of words separated by a specific delimiter
-int	count_words_internal(char *str, char delimiter)
+int	skip_whitespace(char *line, int *index)
+{
+	if (!line || !index)
+		return (FALSE);
+	while (line[*index] && ft_isspace(line[*index]))
+		(*index)++;
+	return (TRUE);
+}
+
+int	count_words(char *str, char delimiter)
 {
 	int	count;
 	int	in_word;
@@ -22,6 +30,8 @@ int	count_words_internal(char *str, char delimiter)
 	count = 0;
 	in_word = 0;
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != delimiter && !in_word)
@@ -36,28 +46,21 @@ int	count_words_internal(char *str, char delimiter)
 	return (count);
 }
 
-// Checks if a character is a whitespace character
-int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\r' || c == '\f' || c == '\v');
-}
-
-// Finds the first occurrence of character c in string str
-char	*ft_strchr(char *str, char c)
+// Copies at most n characters from src to dest
+char	*ft_strncpy(char *dest, const char *src, int n)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i])
+	while (i < n && src[i])
 	{
-		if (str[i] == c)
-			return (&str[i]);
+		dest[i] = src[i];
 		i++;
 	}
-	if (c == '\0')
-		return (&str[i]);
-	return (NULL);
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
