@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:48:21 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:28:36 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*process_map_line(char *file_line)
 	if (!file_line)
 		return (NULL);
 	len = ft_strlen(file_line);
-	// Remove trailing newline if present
 	if (len > 0 && file_line[len - 1] == '\n')
 		len--;
 	if (len == 0)
@@ -98,13 +97,11 @@ char	*process_map_line(char *file_line)
 		return ((char *)-1);
 	ft_strncpy(line_copy, file_line, len);
 	line_copy[len] = '\0';
-	// Check if line contains only spaces
 	for (int i = 0; i < len; i++)
 	{
 		if (file_line[i] != ' ' && file_line[i] != '\t')
 			return (line_copy);
 	}
-	// Line contains only spaces - return NULL to skip
 	free(line_copy);
 	return (NULL);
 }
