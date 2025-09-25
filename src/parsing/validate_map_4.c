@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 00:31:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:31 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@ static void	init_directions(int dx[4], int dy[4])
 
 static int	check_adjacent_spaces(t_data *data, int nx, int ny)
 {
+	int	line_len;
+	
+	if (ny < 0 || ny >= data->map_height)
+		return (FALSE);
+	line_len = ft_strlen(data->map[ny]);
+	if (nx < 0 || nx >= line_len)
+		return (FALSE);
 	if (data->map[ny][nx] == ' ')
 	{
-		if (nx == 0 || nx == data->map_width - 1
+		if (nx == 0 || nx == line_len - 1
 			|| ny == 0 || ny == data->map_height - 1)
 			return (FALSE);
 	}
@@ -42,18 +49,20 @@ int	is_surrounded_by_walls(t_data *data, int x, int y)
 	int	i;
 	int	nx;
 	int	ny;
+	int	line_len;
 
 	init_directions(dx, dy);
 	i = 0;
-	if (x == 0 || x == data->map_width - 1
-		|| y == 0 || y == data->map_height - 1)
+	line_len = ft_strlen(data->map[y]);
+	
+	// Check if we're at the border of the actual map content
+	if (x == 0 || x == line_len - 1 || y == 0 || y == data->map_height - 1)
 		return (data->map[y][x] == WALL);
+	
 	while (i < 4)
 	{
 		nx = x + dx[i];
 		ny = y + dy[i];
-		if (nx < 0 || nx >= data->map_width || ny < 0 || ny >= data->map_height)
-			return (FALSE);
 		if (!check_adjacent_spaces(data, nx, ny))
 			return (FALSE);
 		i++;
@@ -65,13 +74,15 @@ int	validate_walls(t_data *data)
 {
 	int	y;
 	int	x;
+	int	line_len;
 
 	y = 0;
 	printf("🧱 Validating walls...\n");
 	while (y < data->map_height)
 	{
 		x = 0;
-		while (x < data->map_width)
+		line_len = ft_strlen(data->map[y]);
+		while (x < line_len)
 		{
 			if (data->map[y][x] == EMPTY || is_player_char(data->map[y][x]))
 			{

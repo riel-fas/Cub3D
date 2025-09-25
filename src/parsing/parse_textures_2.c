@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:36:49 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:45:10 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:47:14 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	validate_texture_file(char *path)
 
 	if (!validate_texture_extension(path))
 	{
-		printf("❌ Texture file must have .xpm extension: %s\n", path);
+		printf("❌ Texture file must have .png or .PNG extension: %s\n", path);
 		return (FALSE);
 	}
 	fd = open(path, O_RDONLY);
@@ -88,7 +88,7 @@ static char	*extract_texture_path(char *line, int type)
 }
 
 // skip texture identifier and spaces
-// Validate .xpm extension
+// Validate .png/.PNG extension
 // Check if file exists
 // Check if texture already set
 int	parse_texture_line(t_data *data, char *line)

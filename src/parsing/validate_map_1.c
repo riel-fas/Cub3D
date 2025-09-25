@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:17:53 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 // Recursively fills reachable areas starting from player position
 void	flood_fill(char **map_copy, int x, int y, t_data *data)
 {
-	if (x < 0 || x >= data->map_width || y < 0 || y >= data->map_height)
+	// Check bounds dynamically for non-rectangular maps
+	if (y < 0 || y >= data->map_height || x < 0)
+		return ;
+	if (x >= (int)ft_strlen(map_copy[y]))
 		return ;
 	if (map_copy[y][x] == WALL || map_copy[y][x] == 'F'
 		|| map_copy[y][x] == ' ')
@@ -58,12 +61,14 @@ int	validate_flood_fill_result(t_data *data, char **map_copy)
 {
 	int		y;
 	int		x;
+	int		line_len;
 
 	y = 0;
 	while (y < data->map_height)
 	{
 		x = 0;
-		while (x < data->map_width)
+		line_len = ft_strlen(data->map[y]);
+		while (x < line_len)
 		{
 			if ((data->map[y][x] == EMPTY || is_player_char(data->map[y][x]))
 				&& map_copy[y][x] != 'F')
@@ -99,20 +104,14 @@ int	flood_fill_validation(t_data *data)
 	return (result);
 }
 
-// Main validation function that runs all map validation checks
+// Main validation function that runs all map validation checks (reference-style)
 int	validate_map(t_data *data)
 {
 	if (!validate_characters(data))
 		return (FALSE);
 	if (!find_player_position(data))
 		return (FALSE);
-	if (!check_map_borders(data))
-		return (FALSE);
-	if (!check_empty_spaces_near_borders(data))
-		return (FALSE);
-	if (!validate_walls(data))
-		return (FALSE);
-	if (!flood_fill_validation(data))
+	if (!validate_map_boundaries(data))
 		return (FALSE);
 	printf("✅ Map validation completed successfully\n");
 	return (TRUE);

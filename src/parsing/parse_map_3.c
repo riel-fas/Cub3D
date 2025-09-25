@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:48:21 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,42 @@ int	allocate_map_memory(t_data *data)
 	return (TRUE);
 }
 
-// Processes a single map line, trimming whitespace and handling empty lines
+// Processes a single map line, only removing trailing newline
 char	*process_map_line(char *file_line)
 {
-	char	*trimmed_line;
+	char	*line_copy;
+	int		len;
 
-	trimmed_line = ft_strtrim(file_line);
-	if (!trimmed_line)
-	{
-		printf("❌ Memory allocation error\n");
-		return ((char *)-1);
-	}
-	if (trimmed_line[0] == '\0')
-	{
-		free(trimmed_line);
+	if (!file_line)
 		return (NULL);
+	len = ft_strlen(file_line);
+	// Remove trailing newline if present
+	if (len > 0 && file_line[len - 1] == '\n')
+		len--;
+	if (len == 0)
+		return (NULL);
+	line_copy = malloc(len + 1);
+	if (!line_copy)
+		return ((char *)-1);
+	ft_strncpy(line_copy, file_line, len);
+	line_copy[len] = '\0';
+	// Check if line contains only spaces
+	for (int i = 0; i < len; i++)
+	{
+		if (file_line[i] != ' ' && file_line[i] != '\t')
+			return (line_copy);
 	}
-	return (trimmed_line);
+	// Line contains only spaces - return NULL to skip
+	free(line_copy);
+	return (NULL);
 }
 
-// Adds a processed and padded line to the map array at the specified index
+// Adds a processed line to the map array at the specified index (without padding)
 int	add_line_to_map(t_data *data, char *trimmed_line, int map_index)
 {
-	char	*padded_line;
-
-	padded_line = pad_map_line(trimmed_line, data->map_width);
-	if (!padded_line)
+	data->map[map_index] = ft_strdup(trimmed_line);
+	if (!data->map[map_index])
 		return (FALSE);
-	data->map[map_index] = padded_line;
 	printf("🗺️  Line %d: %s\n", map_index, data->map[map_index]);
 	return (TRUE);
 }

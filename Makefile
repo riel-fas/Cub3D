@@ -44,6 +44,7 @@ SRCS					= \
 	src/parsing/validate_map_2.c \
 	src/parsing/validate_map_3.c \
 	src/parsing/validate_map_4.c \
+	src/parsing/validate_map_5.c \
 	src/utils/error.c \
 	src/utils/utils_1.c \
 	src/utils/utils_2.c \

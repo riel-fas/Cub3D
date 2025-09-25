@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:22:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ int	count_and_set_player(t_data *data)
 	int	y;
 	int	x;
 	int	player_count;
+	int	line_len;
 
 	player_count = 0;
 	y = 0;
 	while (y < data->map_height)
 	{
 		x = 0;
-		while (x < data->map_width)
+		line_len = ft_strlen(data->map[y]);
+		while (x < line_len)
 		{
 			if (is_player_char(data->map[y][x]))
 			{
@@ -79,13 +81,15 @@ int	validate_characters(t_data *data)
 {
 	int	y;
 	int	x;
+	int	line_len;
 
 	printf("🔍 Validating map characters...\n");
 	y = 0;
 	while (y < data->map_height)
 	{
 		x = 0;
-		while (x < data->map_width)
+		line_len = ft_strlen(data->map[y]);
+		while (x < line_len)
 		{
 			if (!is_valid_char(data->map[y][x]))
 			{

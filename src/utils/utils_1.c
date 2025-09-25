@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 03:37:37 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,23 @@ int	count_words(char *str, char delimiter)
 		i++;
 	}
 	return (count);
+}
+
+// Copies at most n characters from src to dest
+char	*ft_strncpy(char *dest, const char *src, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

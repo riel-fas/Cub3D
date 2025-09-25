@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 01:38:59 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,12 @@ int		validate_file_extension(char *filename);
 int		validate_texture_files(t_data *data);
 int		check_duplicate_configs(t_data *data);
 
+/* Reference-style validation */
+int		validate_map_boundaries(t_data *data);
+int		check_directions_ver(t_data *data, int x, int y);
+int		check_directions_hor(t_data *data, int x, int y);
+int		check_line(t_data *data, int y);
+
 /* Utils */
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
@@ -220,6 +226,7 @@ int		ft_atoi(char *str);
 int		ft_isspace(char c);
 char	*ft_strchr(char *str, char c);
 int		count_words(char *str, char delimiter);
+char	*ft_strncpy(char *dest, const char *src, int n);
 
 /* Error handling */
 void	error_exit(char *message);
