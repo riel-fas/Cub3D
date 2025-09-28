@@ -34,6 +34,7 @@ static void	init_textures_and_colors(t_data *data)
 	data->colors_parsed[1] = 0;
 }
 
+
 // Initializes map-related variables and player position to default values
 static void	init_map_and_player(t_data *data)
 {
