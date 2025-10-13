@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:05:57 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 // # include "/Users/ssallami/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
@@ -31,6 +31,16 @@
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 750
 # define WINDOW_TITLE "Cub3D"
+
+/* Game settings */
+# define FOV 1.047198		// 60 degrees in radians (PI/3)
+# define MOVE_SPEED 0.1
+# define ROTATE_SPEED 0.03
+# define TEXTURE_SIZE 64
+
+/* Math constants */
+# define PI 3.14159265359
+# define TWO_PI 6.28318530718
 
 /* Error messages */
 # define ERR_ARGS "Error\nUsage: ./cub3D <map.cub>\n"
@@ -77,6 +87,42 @@ typedef struct s_color
 	int	hex;		// Hex representation for MLX
 }	t_color;
 
+/* Vector structure for raycasting */
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
+/* Ray structure */
+typedef struct s_ray
+{
+	t_vector	pos;		// Ray position
+	t_vector	dir;		// Ray direction
+	t_vector	delta_dist;	// Distance between x/y intersections
+	t_vector	side_dist;	// Distance to next x/y intersection
+	t_vector	step;		// Step direction (-1 or 1)
+	int			map_x;		// Current map position
+	int			map_y;
+	int			hit;		// Wall hit flag
+	int			side;		// Which side was hit (0=x, 1=y)
+	double		wall_dist;	// Distance to wall
+	int			line_height;// Height of wall line to draw
+	int			draw_start;	// Start pixel of wall
+	int			draw_end;	// End pixel of wall
+	int			tex_num;	// Texture number (0-3)
+	double		wall_x;		// Exact wall hit position
+	int			tex_x;		// Texture x coordinate
+}	t_ray;
+
+/* Texture structure */
+typedef struct s_texture
+{
+	mlx_texture_t	*mlx_texture;
+	int				width;
+	int				height;
+	uint32_t		**pixels;	// 2D array of pixel data
+}	t_texture;
 
 typedef struct s_data
 {
