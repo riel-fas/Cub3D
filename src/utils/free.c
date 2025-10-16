@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:40:05 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 20:36:49 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	free_data(t_data *data)
 		return ;
 	free_texture_paths(data);
 	free_map_data(data);
+	cleanup_animation(&data->zombie_anim);
 	if (data->file_lines)
 	{
 		free_split(data->file_lines);

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 20:18:34 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 20:59:32 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -36,6 +36,17 @@
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.03
 # define TEXTURE_SIZE 64
+
+/* Animation/HUD settings */
+# define ZOMBIE_HUD_SIZE 200     // Size of the zombie animation HUD
+# define ZOMBIE_HUD_X_OFFSET 20  // Distance from screen edge
+# define ZOMBIE_HUD_Y_OFFSET 20  // Distance from screen edge
+# define ZOMBIE_FRAME_RATE 0.1   // Time between frames (seconds)
+
+/* First-person hands settings */
+# define FP_HANDS_WIDTH_SCALE 0.8   // 80% of screen width (was 0.6)
+# define FP_HANDS_HEIGHT_SCALE 0.7  // 70% of screen height (was 0.5)
+# define FP_HANDS_Y_OFFSET 50       // Pixels up from bottom
 
 /* Math constants */
 # define PI 3.14159265359
@@ -123,6 +134,26 @@ typedef struct s_texture
 	uint32_t		**pixels;
 }	t_texture;
 
+/* Animation frame structure */
+typedef struct s_anim_frame
+{
+	t_texture		texture;
+	int				frame_number;
+}	t_anim_frame;
+
+/* Animation structure */
+typedef struct s_animation
+{
+	t_anim_frame	*frames;
+	int				frame_count;
+	int				current_frame;
+	double			frame_duration;	// Duration of each frame in seconds
+	double			last_update;	// Time of last frame update
+	int				is_playing;
+	int				loop;			// 1 to loop, 0 to play once
+	char			*base_path;		// Base path for animation frames
+}	t_animation;
+
 /* Key state structure */
 typedef struct s_keys
 {
@@ -163,6 +194,9 @@ typedef struct s_data
 	char		*filename;
 	int			empty_lines_in_map;
 	int			**visited;
+	/* Animation system */
+	t_animation	zombie_anim;
+	double		current_time;
 }	t_data;
 
 /* Function prototypes */
@@ -341,6 +375,7 @@ void		draw_vertical_line(t_data *data, int x, t_ray *ray);
 void		draw_textured_wall(t_data *data, int x, t_ray *ray);
 void		draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
 uint32_t	get_texture_pixel(t_data *data, t_ray *ray, int y);
+void		render_zombie_hud(t_data *data);
 
 /* Input handling */
 void		handle_input(mlx_key_data_t keydata, void *param);
@@ -358,5 +393,16 @@ void		update_game(t_data *data);
 /* Math utilities */
 double		degrees_to_radians(double degrees);
 double		normalize_angle(double angle);
+
+/* Animation system */
+int			init_animation(t_animation *anim, char *base_path, double frame_duration);
+int			load_animation_frames(t_animation *anim);
+void		update_animation(t_animation *anim, double current_time);
+void		play_animation(t_animation *anim);
+void		pause_animation(t_animation *anim);
+void		reset_animation(t_animation *anim);
+t_texture	*get_current_frame(t_animation *anim);
+void		cleanup_animation(t_animation *anim);
+double		get_current_time(void);
 
 #endif

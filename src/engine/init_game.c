@@ -62,8 +62,18 @@ int	init_game(t_data *data)
 		mlx_terminate(data->mlx);
 		return (FALSE);
 	}
+	printf("🧟 Initializing zombie animation...\n");
+	if (!init_animation(&data->zombie_anim, "textures/zombie", ZOMBIE_FRAME_RATE))
+	{
+		printf("❌ Failed to initialize zombie animation\n");
+		cleanup_textures(data);
+		mlx_terminate(data->mlx);
+		return (FALSE);
+	}
+	play_animation(&data->zombie_anim);
 	if (!init_player(data))
 	{
+		cleanup_animation(&data->zombie_anim);
 		cleanup_textures(data);
 		mlx_terminate(data->mlx);
 		return (FALSE);
@@ -78,6 +88,7 @@ int	init_game(t_data *data)
 	data->keys.d_pressed = 0;
 	data->keys.left_pressed = 0;
 	data->keys.right_pressed = 0;
+	data->current_time = 0.0;
 	printf("🎮 Use WASD to move, mouse to look around, ESC to exit\n\n");
 	return (TRUE);
 }
