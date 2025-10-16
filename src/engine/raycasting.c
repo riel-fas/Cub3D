@@ -92,10 +92,14 @@ void	perform_dda(t_data *data, t_ray *ray)
 			ray->side = 1; // y-side
 		}
 		
-		// Check if ray has hit a wall
+		// Check bounds first to prevent segfault
 		if (ray->map_x < 0 || ray->map_x >= data->map_width ||
-			ray->map_y < 0 || ray->map_y >= data->map_height ||
-			data->map[ray->map_y][ray->map_x] == '1')
+			ray->map_y < 0 || ray->map_y >= data->map_height)
+		{
+			ray->hit = 1;
+		}
+		// Only check map content if within bounds
+		else if (data->map[ray->map_y][ray->map_x] == '1')
 		{
 			ray->hit = 1;
 		}

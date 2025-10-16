@@ -23,24 +23,39 @@ void	move_player(t_data *data, double move_x, double move_y)
 	new_x = data->player_pos.x + move_x;
 	new_y = data->player_pos.y + move_y;
 	
-	// Check x-axis collision
-	map_x = (int)new_x;
+	// Check x-axis collision with boundary and collision margin
+	map_x = (int)(new_x + 0.1); // Add small margin for wall collision
+	if (move_x > 0)
+		map_x = (int)(new_x + 0.2);
+	else if (move_x < 0)
+		map_x = (int)(new_x - 0.2);
+	else
+		map_x = (int)new_x;
+		
 	map_y = (int)data->player_pos.y;
 	
 	if (map_x >= 0 && map_x < data->map_width && 
 		map_y >= 0 && map_y < data->map_height &&
+		data->map[map_y] && data->map[map_y][map_x] &&
 		data->map[map_y][map_x] != '1')
 	{
 		data->player_pos.x = new_x;
 		data->player_x = new_x;
 	}
 	
-	// Check y-axis collision
+	// Check y-axis collision with boundary and collision margin
 	map_x = (int)data->player_pos.x;
-	map_y = (int)new_y;
+	map_y = (int)(new_y + 0.1); // Add small margin for wall collision
+	if (move_y > 0)
+		map_y = (int)(new_y + 0.2);
+	else if (move_y < 0)
+		map_y = (int)(new_y - 0.2);
+	else
+		map_y = (int)new_y;
 	
 	if (map_x >= 0 && map_x < data->map_width && 
 		map_y >= 0 && map_y < data->map_height &&
+		data->map[map_y] && data->map[map_y][map_x] &&
 		data->map[map_y][map_x] != '1')
 	{
 		data->player_pos.y = new_y;
