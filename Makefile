@@ -29,6 +29,7 @@ LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -
 
 SRCS					= \
 	src/main.c \
+	src/main_utils.c \
 	src/engine/init_game.c \
 	src/engine/init_setup_1.c \
 	src/engine/init_setup_2.c \

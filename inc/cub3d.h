@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 18:22:42 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:29:51 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -169,6 +169,13 @@ typedef struct s_data
 /* Main */
 int			main(int argc, char **argv);
 int			validate_args(int argc, char **argv);
+void		print_parsing_summary(t_data *data);
+void		print_texture_status(t_data *data);
+void		print_color_status(t_data *data);
+void		init_textures_and_colors(t_data *data);
+void		init_map_and_player(t_data *data);
+void		init_data(t_data *data);
+int			check_file_extension(char *filename);
 
 /* Parsing */
 int			parse_file(t_data *data, char *filename);

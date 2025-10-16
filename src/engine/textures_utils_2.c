@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:34:10 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 18:23:17 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:25:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	handle_fallback_texture(t_data *data, int index)
 	fallback_colors[1] = 0x00FF00FF;
 	fallback_colors[2] = 0x0000FFFF;
 	fallback_colors[3] = 0xFFFF00FF;
-	if (!create_fallback_texture(&data->textures[index], fallback_colors[index]))
+	if (!create_fallback_texture(&data->textures[index], 
+			fallback_colors[index]))
 		return (FALSE);
 	printf("✅ %s texture created successfully\n", texture_names[index]);
 	return (TRUE);
@@ -70,7 +71,8 @@ int	load_single_texture(t_data *data, int index)
 	texture_names[1] = "South";
 	texture_names[2] = "West";
 	texture_names[3] = "East";
-	data->textures[index].mlx_texture = mlx_load_png(data->texture_paths[index]);
+	data->textures[index].mlx_texture 
+		= mlx_load_png(data->texture_paths[index]);
 	if (!data->textures[index].mlx_texture)
 		return (handle_fallback_texture(data, index));
 	data->textures[index].width = data->textures[index].mlx_texture->width;
