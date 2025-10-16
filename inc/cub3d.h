@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 14:48:28 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:14:18 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -287,6 +287,13 @@ int			init_game(t_data *data);
 int			init_mlx(t_data *data);
 int			init_player(t_data *data);
 void		setup_player_vectors(t_data *data);
+void		setup_player_position(t_data *data);
+void		setup_direction_north(t_data *data);
+void		setup_direction_south(t_data *data);
+void		setup_direction_east(t_data *data);
+void		setup_direction_west(t_data *data);
+void		setup_player_direction_vectors(t_data *data);
+void		finalize_player_setup(t_data *data);
 int			load_textures(t_data *data);
 void		cleanup_textures(t_data *data);
 uint32_t	get_pixel_color(t_texture *texture, int x, int y);
@@ -313,6 +320,8 @@ void		handle_input(mlx_key_data_t keydata, void *param);
 void		handle_mouse(double xpos, double ypos, void *param);
 void		process_movement(t_data *data);
 void		move_player(t_data *data, double move_x, double move_y);
+void		move_player_x(t_data *data, double move_x);
+void		move_player_y(t_data *data, double move_y);
 void		rotate_player(t_data *data, double angle);
 
 /* Game loop */
