@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:34:10 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:56:06 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:01:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,17 @@ static int	create_fallback_texture(t_texture *texture, uint32_t color)
 
 int	load_single_texture(t_data *data, int index)
 {
-	char		*texture_names[] = {"North", "South", "West", "East"};
-	uint32_t	fallback_colors[] = {0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0xFFFF00FF};
-	
+	char		*texture_names[4];
+	uint32_t	fallback_colors[4];
+
+	texture_names[0] = "North";
+	texture_names[1] = "South";
+	texture_names[2] = "West";
+	texture_names[3] = "East";
+	fallback_colors[0] = 0xFF0000FF;
+	fallback_colors[1] = 0x00FF00FF;
+	fallback_colors[2] = 0x0000FFFF;
+	fallback_colors[3] = 0xFFFF00FF;
 	data->textures[index].mlx_texture = mlx_load_png(data->texture_paths[index]);
 	if (!data->textures[index].mlx_texture)
 	{

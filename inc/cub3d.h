@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:39:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:06:55 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -298,6 +298,22 @@ int			load_textures(t_data *data);
 void		cleanup_textures(t_data *data);
 uint32_t	get_pixel_color(t_texture *texture, int x, int y);
 uint32_t	rgb_to_hex(int r, int g, int b);
+void		process_forward_backward(t_data *data);
+void		process_strafe(t_data *data);
+void		handle_movement_keys(mlx_key_data_t keydata, t_data *data);
+void		handle_rotation_keys(mlx_key_data_t keydata, t_data *data);
+void		handle_w_key(mlx_key_data_t keydata, t_data *data);
+void		handle_a_key(mlx_key_data_t keydata, t_data *data);
+void		handle_s_key(mlx_key_data_t keydata, t_data *data);
+void		handle_d_key(mlx_key_data_t keydata, t_data *data);
+void		handle_rotation_keys(mlx_key_data_t keydata, t_data *data);
+void		calculate_line_height_and_bounds(t_ray *ray);
+void		calculate_line_height_and_bounds(t_ray *ray);
+void		calculate_texture_coordinates(t_ray *ray);
+void		determine_texture_number(t_ray *ray);
+int			load_single_texture(t_data *data, int index);
+void		convert_texture_pixels(t_texture *texture);
+
 
 /* Raycasting */
 void		cast_rays(t_data *data);
@@ -307,9 +323,6 @@ void		perform_dda(t_data *data, t_ray *ray);
 void		calculate_wall_distance(t_ray *ray);
 void		calculate_draw_bounds(t_ray *ray);
 void		cast_single_ray(t_data *data, int x);
-void		calculate_line_height_and_bounds(t_ray *ray);
-void		determine_texture_number(t_ray *ray);
-void		calculate_texture_coordinates(t_ray *ray);
 
 /* Rendering */
 void		render_frame(t_data *data);
@@ -317,8 +330,6 @@ void		draw_vertical_line(t_data *data, int x, t_ray *ray);
 void		draw_textured_wall(t_data *data, int x, t_ray *ray);
 void		draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
 uint32_t	get_texture_pixel(t_data *data, t_ray *ray, int y);
-int			load_single_texture(t_data *data, int index);
-void		convert_texture_pixels(t_texture *texture);
 
 /* Input handling */
 void		handle_input(mlx_key_data_t keydata, void *param);
@@ -328,16 +339,6 @@ void		move_player(t_data *data, double move_x, double move_y);
 void		move_player_x(t_data *data, double move_x);
 void		move_player_y(t_data *data, double move_y);
 void		rotate_player(t_data *data, double angle);
-void		process_movement(t_data *data);
-void		process_rotation(t_data *data);
-void		process_forward_backward(t_data *data);
-void		process_strafe(t_data *data);
-void		handle_rotation_keys(mlx_key_data_t keydata, t_data *data);
-void		handle_movement_keys(mlx_key_data_t keydata, t_data *data);
-void		handle_w_key(mlx_key_data_t keydata, t_data *data);
-void		handle_a_key(mlx_key_data_t keydata, t_data *data);
-void		handle_s_key(mlx_key_data_t keydata, t_data *data);
-void		handle_d_key(mlx_key_data_t keydata, t_data *data);
 
 /* Game loop */
 void		game_loop(void *param);
