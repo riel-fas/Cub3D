@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 18:06:55 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:22:42 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,11 @@ void		calculate_texture_coordinates(t_ray *ray);
 void		determine_texture_number(t_ray *ray);
 int			load_single_texture(t_data *data, int index);
 void		convert_texture_pixels(t_texture *texture);
-
+void		init_fallback_texture_properties(t_texture *texture);
+int			allocate_fallback_pixel_arrays(t_texture *texture);
+void		generate_checkerboard_row(t_texture *texture, int y, uint32_t color);
+int			create_fallback_texture(t_texture *texture, uint32_t color);
+int			handle_fallback_texture(t_data *data, int index);
 
 /* Raycasting */
 void		cast_rays(t_data *data);

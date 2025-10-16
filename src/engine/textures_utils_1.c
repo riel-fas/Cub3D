@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:32:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:53:33 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:23:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,34 @@ void	cleanup_textures(t_data *data)
 		}
 		i++;
 	}
+}
+
+void	init_fallback_texture_properties(t_texture *texture)
+{
+	texture->width = TEXTURE_SIZE;
+	texture->height = TEXTURE_SIZE;
+	texture->mlx_texture = NULL;
+}
+
+int	allocate_fallback_pixel_arrays(t_texture *texture)
+{
+	int	y;
+
+	texture->pixels = malloc(sizeof(uint32_t *) * texture->height);
+	if (!texture->pixels)
+		return (FALSE);
+	y = 0;
+	while (y < texture->height)
+	{
+		texture->pixels[y] = malloc(sizeof(uint32_t) * texture->width);
+		if (!texture->pixels[y])
+		{
+			while (--y >= 0)
+				free(texture->pixels[y]);
+			free(texture->pixels);
+			return (FALSE);
+		}
+		y++;
+	}
+	return (TRUE);
 }
