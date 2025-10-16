@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:25:48 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 18:28:17 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:37:05 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	init_textures_and_colors(t_data *data)
 	data->colors_parsed[1] = 0;
 }
 
-
-// Initializes map-related variables and player position to default values
+// Initializes map-related variables and player position 
+//to default values
 void	init_map_and_player(t_data *data)
 {
 	data->map = NULL;
