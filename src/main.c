@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:39:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 18:28:13 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:34:13 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,34 @@ void	print_parsing_summary(t_data *data)
 	printf("========================\n\n");
 }
 
-// Main program entry point - handles argument validation and file parsing
-int	main(int argc, char **argv)
+// Handles argument validation and file parsing
+static int	parse_and_validate(t_data *data, int argc, char **argv)
 {
-	t_data	data;
-
 	if (argc != 2)
 		error_exit(ERR_ARGS);
 	if (!check_file_extension(argv[1]))
 		error_exit(ERR_EXTENSION);
-	init_data(&data);
-	data.filename = argv[1];
+	init_data(data);
+	data->filename = argv[1];
 	printf("🚀 Starting Cub3D parsing...\n");
 	printf("📁 File: %s\n\n", argv[1]);
-	if (!parse_file(&data, argv[1]))
+	if (!parse_file(data, argv[1]))
 	{
 		printf("❌ Parsing failed!\n");
-		free_data(&data);
+		free_data(data);
 		exit(EXIT_FAILURE);
 	}
-	print_parsing_summary(&data);
+	print_parsing_summary(data);
 	printf("🎯 Parsing completed successfully!\n");
+	return (TRUE);
+}
+
+// Main program entry point - coordinates parsing and game execution
+int	main(int argc, char **argv)
+{
+	t_data	data;
+
+	parse_and_validate(&data, argc, argv);
 	printf("🎮 Starting 3D engine...\n");
 	if (!init_game(&data))
 	{
