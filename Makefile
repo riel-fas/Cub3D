@@ -30,11 +30,20 @@ LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -
 SRCS					= \
 	src/main.c \
 	src/engine/init_game.c \
+	src/engine/init_setup_1.c \
+	src/engine/init_setup_2.c \
 	src/engine/input.c \
+	src/engine/input_utils.c \
+	src/engine/movement.c \
+	src/engine/keys.c \
 	src/engine/math_utils.c \
 	src/engine/raycasting.c \
+	src/engine/raycasting_utils.c \
 	src/engine/rendering.c \
+	src/engine/rendering_utils.c \
 	src/engine/textures.c \
+	src/engine/textures_utils_1.c \
+	src/engine/textures_utils_2.c \
 	src/parsing/parse_file.c \
 	src/parsing/parse_file_content_1.c \
 	src/parsing/parse_file_content_2.c \
