@@ -55,7 +55,6 @@ int	init_player(t_data *data)
 
 int	init_game(t_data *data)
 {
-	printf("\n🚀 Initializing 3D Engine...\n");
 	if (!init_mlx(data))
 		return (FALSE);
 	if (!load_textures(data))
@@ -71,6 +70,7 @@ int	init_game(t_data *data)
 	}
 	mlx_key_hook(data->mlx, handle_input, data);
 	mlx_cursor_hook(data->mlx, handle_mouse, data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	data->game_running = TRUE;
 	data->keys.w_pressed = 0;
 	data->keys.a_pressed = 0;
