@@ -16,40 +16,28 @@ void	init_ray(t_data *data, t_ray *ray, int x)
 {
 	double	camera_x;
 
-	// Calculate camera x coordinate (-1 to 1)
-	camera_x = 2.0 * x / (double)WINDOW_WIDTH - 1.0;
-	
-	// Ray position = player position
+	camera_x = 2.0 * x / (double)WINDOW_WIDTH - 1.0;	
 	ray->pos.x = data->player_pos.x;
 	ray->pos.y = data->player_pos.y;
-	
-	// Ray direction = player direction + camera plane offset
 	ray->dir.x = data->player_dir_vec.x + data->camera_plane.x * camera_x;
 	ray->dir.y = data->player_dir_vec.y + data->camera_plane.y * camera_x;
-	
-	// Current map position
 	ray->map_x = (int)ray->pos.x;
 	ray->map_y = (int)ray->pos.y;
-	
-	// Calculate delta distances
 	if (ray->dir.x == 0)
 		ray->delta_dist.x = 1e30;
 	else
 		ray->delta_dist.x = fabs(1.0 / ray->dir.x);
-	
 	if (ray->dir.y == 0)
 		ray->delta_dist.y = 1e30;
 	else
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
-	
 	ray->hit = 0;
 }
 
 void	calculate_step_and_side_dist(t_data *data, t_ray *ray)
 {
-	(void)data; // Suppress unused parameter warning
-	
-	// Calculate step and initial side_dist
+	(void)data;
+
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
@@ -75,10 +63,8 @@ void	calculate_step_and_side_dist(t_data *data, t_ray *ray)
 
 void	perform_dda(t_data *data, t_ray *ray)
 {
-	// Perform DDA (Digital Differential Analyzer)
 	while (ray->hit == 0)
 	{
-		// Jump to next map square, either in x-direction, or in y-direction
 		if (ray->side_dist.x < ray->side_dist.y)
 		{
 			ray->side_dist.x += ray->delta_dist.x;
@@ -91,14 +77,11 @@ void	perform_dda(t_data *data, t_ray *ray)
 			ray->map_y += ray->step.y;
 			ray->side = 1; // y-side
 		}
-		
-		// Check bounds first to prevent segfault
 		if (ray->map_x < 0 || ray->map_x >= data->map_width ||
 			ray->map_y < 0 || ray->map_y >= data->map_height)
 		{
 			ray->hit = 1;
 		}
-		// Only check map content if within bounds
 		else if (data->map[ray->map_y][ray->map_x] == '1')
 		{
 			ray->hit = 1;
@@ -108,7 +91,6 @@ void	perform_dda(t_data *data, t_ray *ray)
 
 void	calculate_wall_distance(t_ray *ray)
 {
-	// Calculate distance to wall
 	if (ray->side == 0)
 		ray->wall_dist = (ray->map_x - ray->pos.x + (1 - ray->step.x) / 2) / ray->dir.x;
 	else
@@ -117,42 +99,32 @@ void	calculate_wall_distance(t_ray *ray)
 
 void	calculate_draw_bounds(t_ray *ray)
 {
-	// Calculate height of line to draw on screen
 	ray->line_height = (int)(WINDOW_HEIGHT / ray->wall_dist);
-	
-	// Calculate lowest and highest pixel to fill in current stripe
 	ray->draw_start = -ray->line_height / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	
 	ray->draw_end = ray->line_height / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_end >= WINDOW_HEIGHT)
 		ray->draw_end = WINDOW_HEIGHT - 1;
-	
-	// Determine texture number based on wall side and direction
-	if (ray->side == 0) // x-side
+	if (ray->side == 0)
 	{
 		if (ray->dir.x > 0)
-			ray->tex_num = 3; // East texture
+			ray->tex_num = 3;
 		else
-			ray->tex_num = 2; // West texture
+			ray->tex_num = 2;
 	}
-	else // y-side
+	else
 	{
 		if (ray->dir.y > 0)
-			ray->tex_num = 1; // South texture
+			ray->tex_num = 1;
 		else
-			ray->tex_num = 0; // North texture
+			ray->tex_num = 0;
 	}
-	
-	// Calculate wall x coordinate for texture mapping
 	if (ray->side == 0)
 		ray->wall_x = ray->pos.y + ray->wall_dist * ray->dir.y;
 	else
 		ray->wall_x = ray->pos.x + ray->wall_dist * ray->dir.x;
 	ray->wall_x -= floor(ray->wall_x);
-	
-	// Calculate texture x coordinate
 	ray->tex_x = (int)(ray->wall_x * (double)TEXTURE_SIZE);
 	if (ray->side == 0 && ray->dir.x > 0)
 		ray->tex_x = TEXTURE_SIZE - ray->tex_x - 1;
@@ -164,20 +136,11 @@ void	cast_single_ray(t_data *data, int x)
 {
 	t_ray	ray;
 
-	// Initialize ray
 	init_ray(data, &ray, x);
-	
-	// Calculate step and side distances
 	calculate_step_and_side_dist(data, &ray);
-	
-	// Perform DDA to find wall hit
 	perform_dda(data, &ray);
-	
-	// Calculate wall distance and drawing bounds
 	calculate_wall_distance(&ray);
 	calculate_draw_bounds(&ray);
-	
-	// Draw the vertical line
 	draw_vertical_line(data, x, &ray);
 }
 
@@ -185,7 +148,6 @@ void	cast_rays(t_data *data)
 {
 	int	x;
 
-	// Cast a ray for each column of pixels
 	for (x = 0; x < WINDOW_WIDTH; x++)
 	{
 		cast_single_ray(data, x);
