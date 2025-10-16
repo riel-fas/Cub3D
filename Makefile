@@ -30,7 +30,12 @@ LIBS					= $(MLX_LIB) -L $(GLFW_LIB) -lglfw -framework OpenGL -framework IOKit -
 SRCS					= \
 	src/main.c \
 	src/main_utils.c \
-	src/engine/animation.c \
+	src/animation/anim_0.c \
+	src/animation/anim_1.c \
+	src/animation/anim_2.c \
+	src/animation/anim_3.c \
+	src/animation/anim_4.c \
+	src/animation/anim_5.c \
 	src/engine/init_game.c \
 	src/engine/init_setup_1.c \
 	src/engine/init_setup_2.c \
@@ -42,6 +47,8 @@ SRCS					= \
 	src/engine/raycasting.c \
 	src/engine/raycasting_utils.c \
 	src/engine/rendering.c \
+	src/engine/render_anim_1.c \
+	src/engine/render_anim_2.c \
 	src/engine/rendering_utils.c \
 	src/engine/textures.c \
 	src/engine/textures_utils_1.c \

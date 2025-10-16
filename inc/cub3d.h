@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 20:59:32 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 21:44:24 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -376,6 +376,7 @@ void		draw_textured_wall(t_data *data, int x, t_ray *ray);
 void		draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
 uint32_t	get_texture_pixel(t_data *data, t_ray *ray, int y);
 void		render_zombie_hud(t_data *data);
+void		render_first_person_zombie_hands(t_data *data);
 
 /* Input handling */
 void		handle_input(mlx_key_data_t keydata, void *param);
@@ -404,5 +405,19 @@ void		reset_animation(t_animation *anim);
 t_texture	*get_current_frame(t_animation *anim);
 void		cleanup_animation(t_animation *anim);
 double		get_current_time(void);
+
+
+int			load_all_frames(t_animation *anim);
+void		cleanup_partial_frames(t_animation *anim, int loaded_count);
+int			allocate_animation_frames(t_animation *anim);
+void		cleanup_frame_texture(t_texture *texture);
+int			load_single_frame(t_animation *anim, int frame_num);
+int			setup_frame_pixels(t_texture *texture);
+int			load_frame_texture(t_texture *texture, char *frame_path);
+void		build_frame_path(char *frame_path, char *base_path, int frame_num);
+void		add_frame_number(char *frame_path, int len, int frame_num);
+void		add_frame_prefix(char *frame_path, int len);
+void		copy_base_path(char *frame_path, char *base_path, int *len);
+
 
 #endif
