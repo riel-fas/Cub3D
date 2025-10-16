@@ -97,7 +97,7 @@ void	calculate_wall_distance(t_ray *ray)
 		ray->wall_dist = (ray->map_y - ray->pos.y + (1 - ray->step.y) / 2) / ray->dir.y;
 }
 
-void	calculate_draw_bounds(t_ray *ray)
+void	calculate_line_height_and_bounds(t_ray *ray)
 {
 	ray->line_height = (int)(WINDOW_HEIGHT / ray->wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WINDOW_HEIGHT / 2;
@@ -106,6 +106,10 @@ void	calculate_draw_bounds(t_ray *ray)
 	ray->draw_end = ray->line_height / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_end >= WINDOW_HEIGHT)
 		ray->draw_end = WINDOW_HEIGHT - 1;
+}
+
+void	determine_texture_number(t_ray *ray)
+{
 	if (ray->side == 0)
 	{
 		if (ray->dir.x > 0)
@@ -120,6 +124,10 @@ void	calculate_draw_bounds(t_ray *ray)
 		else
 			ray->tex_num = 0;
 	}
+}
+
+void	calculate_texture_coordinates(t_ray *ray)
+{
 	if (ray->side == 0)
 		ray->wall_x = ray->pos.y + ray->wall_dist * ray->dir.y;
 	else
@@ -130,6 +138,13 @@ void	calculate_draw_bounds(t_ray *ray)
 		ray->tex_x = TEXTURE_SIZE - ray->tex_x - 1;
 	if (ray->side == 1 && ray->dir.y < 0)
 		ray->tex_x = TEXTURE_SIZE - ray->tex_x - 1;
+}
+
+void	calculate_draw_bounds(t_ray *ray)
+{
+	calculate_line_height_and_bounds(ray);
+	determine_texture_number(ray);
+	calculate_texture_coordinates(ray);
 }
 
 void	cast_single_ray(t_data *data, int x)
@@ -148,8 +163,10 @@ void	cast_rays(t_data *data)
 {
 	int	x;
 
-	for (x = 0; x < WINDOW_WIDTH; x++)
+	x = 0;
+	while (x < WINDOW_WIDTH)
 	{
 		cast_single_ray(data, x);
+		x++;
 	}
 }
