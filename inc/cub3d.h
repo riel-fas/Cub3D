@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/13 14:05:57 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:49:22 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
 // # include "/Users/ssallami/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
@@ -124,15 +124,26 @@ typedef struct s_texture
 	uint32_t		**pixels;	// 2D array of pixel data
 }	t_texture;
 
+/* Key state structure */
+typedef struct s_keys
+{
+	int	w_pressed;
+	int	a_pressed;
+	int	s_pressed;
+	int	d_pressed;
+	int	left_pressed;
+	int	right_pressed;
+}	t_keys;
+
 typedef struct s_data
 {
 	/* MLX */
-	/* mlx_t		*mlx; */
-	/* mlx_image_t	*image; */
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 	
 	/* Textures */
 	char		*texture_paths[4];	// NO, SO, WE, EA
-	/* t_texture	textures[4]; */		// Loaded texture data
+	t_texture	textures[4];		// Loaded texture data
 	t_color		floor_color;
 	t_color		ceiling_color;
 	
@@ -146,6 +157,15 @@ typedef struct s_data
 	double		player_y;
 	char		player_dir;		// N, S, E, W
 	double		player_angle;	// Angle in radians
+	
+	/* Player vectors for 3D engine */
+	t_vector	player_pos;		// Player position as vector
+	t_vector	player_dir_vec;	// Player direction vector
+	t_vector	camera_plane;	// Camera plane for FOV
+	
+	/* Game state */
+	int			game_running;
+	t_keys		keys;
 	
 	/* Parsing flags */
 	int			textures_parsed[4];	// individual texture flags
@@ -282,5 +302,46 @@ void	free_split(char **split);
 /* Additional map helper functions */
 char	*pad_map_line(char *line, int target_width);
 char	*process_map_line(char *file_line);
+
+/* Engine functions */
+int		init_game(t_data *data);
+int		init_mlx(t_data *data);
+int		init_player(t_data *data);
+void	setup_player_vectors(t_data *data);
+int		load_textures(t_data *data);
+void	cleanup_textures(t_data *data);
+uint32_t	get_pixel_color(t_texture *texture, int x, int y);
+uint32_t	rgb_to_hex(int r, int g, int b);
+
+/* Raycasting */
+void	cast_rays(t_data *data);
+void	init_ray(t_data *data, t_ray *ray, int x);
+void	calculate_step_and_side_dist(t_data *data, t_ray *ray);
+void	perform_dda(t_data *data, t_ray *ray);
+void	calculate_wall_distance(t_ray *ray);
+void	calculate_draw_bounds(t_ray *ray);
+void	cast_single_ray(t_data *data, int x);
+
+/* Rendering */
+void	render_frame(t_data *data);
+void	draw_vertical_line(t_data *data, int x, t_ray *ray);
+void	draw_textured_wall(t_data *data, int x, t_ray *ray);
+void	draw_floor_and_ceiling(t_data *data, int x, t_ray *ray);
+uint32_t	get_texture_pixel(t_data *data, t_ray *ray, int y);
+
+/* Input handling */
+void	handle_input(mlx_key_data_t keydata, void *param);
+void	handle_mouse(double xpos, double ypos, void *param);
+void	process_movement(t_data *data);
+void	move_player(t_data *data, double move_x, double move_y);
+void	rotate_player(t_data *data, double angle);
+
+/* Game loop */
+void	game_loop(void *param);
+void	update_game(t_data *data);
+
+/* Math utilities */
+double	degrees_to_radians(double degrees);
+double	normalize_angle(double angle);
 
 #endif

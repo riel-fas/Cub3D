@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:39:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/14 02:21:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:49:22 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,23 @@ int	main(int argc, char **argv)
 	}
 	print_parsing_summary(&data);
 	printf("🎯 Parsing completed successfully!\n");
+	
+	// Initialize and start the 3D engine
+	printf("🎮 Starting 3D engine...\n");
+	if (!init_game(&data))
+	{
+		printf("❌ Failed to initialize 3D engine!\n");
+		free_data(&data);
+		exit(EXIT_FAILURE);
+	}
+	
+	// Start the game loop
+	mlx_loop_hook(data.mlx, game_loop, &data);
+	mlx_loop(data.mlx);
+	
+	// Cleanup
+	cleanup_textures(&data);
+	mlx_terminate(data.mlx);
 	free_data(&data);
 	return (EXIT_SUCCESS);
 }
