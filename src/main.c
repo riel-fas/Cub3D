@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:39:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/17 08:00:12 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 09:37:07 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,15 @@ static int	parse_and_validate(t_data *data, int argc, char **argv)
 	return (TRUE);
 }
 
+// void	ll(){
+// 	system("leaks -q a.out");
+// }
+
 // Main program entry point - coordinates parsing and game execution
 int	main(int argc, char **argv)
 {
 	t_data	data;
-
+	
 	parse_and_validate(&data, argc, argv);
 	printf("🎮 Starting 3D engine...\n");
 	if (!init_game(&data))
