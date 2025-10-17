@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/17 08:19:42 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 09:23:45 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,11 @@ typedef struct s_animation
 	t_anim_frame	*frames;
 	int				frame_count;
 	int				current_frame;
-	double			frame_duration;	// Duration of each frame in seconds
-	double			last_update;	// Time of last frame update
+	double			frame_duration;
+	double			last_update;
 	int				is_playing;
-	int				loop;			// 1 to loop, 0 to play once
-	char			*base_path;		// Base path for animation frames
+	int				loop;
+	char			*base_path;
 }	t_animation;
 
 /* Helper structures for rendering */
@@ -213,7 +213,6 @@ typedef struct s_data
 	char		*filename;
 	int			empty_lines_in_map;
 	int			**visited;
-	/* Animation system */
 	t_animation	zombie_anim;
 	double		current_time;
 }	t_data;
@@ -375,7 +374,8 @@ int			load_single_texture(t_data *data, int index);
 void		convert_texture_pixels(t_texture *texture);
 void		init_fallback_texture_properties(t_texture *texture);
 int			allocate_fallback_pixel_arrays(t_texture *texture);
-void		generate_checkerboard_row(t_texture *texture, int y, uint32_t color);
+void		generate_checkerboard_row(t_texture *texture, 
+				int y, uint32_t color);
 int			create_fallback_texture(t_texture *texture, uint32_t color);
 int			handle_fallback_texture(t_data *data, int index);
 
@@ -415,7 +415,8 @@ double		degrees_to_radians(double degrees);
 double		normalize_angle(double angle);
 
 /* Animation system */
-int			init_animation(t_animation *anim, char *base_path, double frame_duration);
+int			init_animation(t_animation *anim, 
+				char *base_path, double frame_duration);
 int			load_animation_frames(t_animation *anim);
 void		update_animation(t_animation *anim, double current_time);
 void		play_animation(t_animation *anim);
@@ -424,8 +425,6 @@ void		reset_animation(t_animation *anim);
 t_texture	*get_current_frame(t_animation *anim);
 void		cleanup_animation(t_animation *anim);
 double		get_current_time(void);
-
-
 int			load_all_frames(t_animation *anim);
 void		cleanup_partial_frames(t_animation *anim, int loaded_count);
 int			allocate_animation_frames(t_animation *anim);
@@ -437,6 +436,5 @@ void		build_frame_path(char *frame_path, char *base_path, int frame_num);
 void		add_frame_number(char *frame_path, int len, int frame_num);
 void		add_frame_prefix(char *frame_path, int len);
 void		copy_base_path(char *frame_path, char *base_path, int *len);
-
 
 #endif

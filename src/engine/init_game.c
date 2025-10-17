@@ -63,7 +63,8 @@ int	init_game(t_data *data)
 		return (FALSE);
 	}
 	printf("🧟 Initializing zombie animation...\n");
-	if (!init_animation(&data->zombie_anim, "textures/zombie", ZOMBIE_FRAME_RATE))
+	if (!init_animation(&data->zombie_anim, "textures/zombie", 
+			ZOMBIE_FRAME_RATE))
 	{
 		printf("❌ Failed to initialize zombie animation\n");
 		cleanup_textures(data);

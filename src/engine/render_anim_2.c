@@ -6,13 +6,14 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 21:42:22 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 21:42:40 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 08:23:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	calculate_zombie_hud_position(int *hud_x, int *hud_y, int hud_size, int position_mode)
+void	calculate_zombie_hud_position(int *hud_x, int *hud_y, 
+								int hud_size, int position_mode)
 {
 	if (position_mode == 1)
 	{
