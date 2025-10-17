@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:30:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 21:34:05 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 08:09:52 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	update_animation(t_animation *anim, double current_time)
 	if (current_time - anim->last_update >= anim->frame_duration)
 	{
 		anim->current_frame++;
-		
 		if (anim->current_frame >= anim->frame_count)
 		{
 			if (anim->loop)

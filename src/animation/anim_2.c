@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 21:23:08 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 21:23:17 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 08:10:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ t_texture	*get_current_frame(t_animation *anim)
 {
 	if (!anim->frames || anim->current_frame >= anim->frame_count)
 		return (NULL);
-	
 	return (&anim->frames[anim->current_frame].texture);
 }
