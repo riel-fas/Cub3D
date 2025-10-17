@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 21:40:47 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 21:43:48 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 08:18:34 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,59 +25,52 @@ static void	calculate_hands_position(int hands_width, int hands_height,
     *hands_y = WINDOW_HEIGHT - hands_height + FP_HANDS_Y_OFFSET;
 }
 
-static int	is_valid_pixel_position(int tex_x, int tex_y, int screen_x, int screen_y,
-                                t_texture *texture)
+static int	is_valid_pixel_position(t_pixel_coords coords, t_texture *texture)
 {
-    return (tex_x >= 0 && tex_x < texture->width && 
-            tex_y >= 0 && tex_y < texture->height &&
-            screen_x < WINDOW_WIDTH && screen_y < WINDOW_HEIGHT &&
-            screen_x >= 0 && screen_y >= 0);
+    return (coords.tex_x >= 0 && coords.tex_x < texture->width && 
+            coords.tex_y >= 0 && coords.tex_y < texture->height &&
+            coords.screen_x < WINDOW_WIDTH && coords.screen_y < WINDOW_HEIGHT &&
+            coords.screen_x >= 0 && coords.screen_y >= 0);
 }
 
 static void	render_hands_pixel(t_data *data, t_texture *current_frame,
-                            int x, int y, int hands_x, int hands_y,
-                            int hands_width, int hands_height)
+                            t_hands_render_info *info)
 {
-    int			tex_x;
-    int			tex_y;
-    uint32_t	color;
+    t_pixel_coords	coords;
+    uint32_t		color;
 
-    tex_x = (x * current_frame->width) / hands_width;
-    tex_y = (y * current_frame->height) / hands_height;
+    coords.tex_x = (info->x * current_frame->width) / info->hands_width;
+    coords.tex_y = (info->y * current_frame->height) / info->hands_height;
+    coords.screen_x = info->hands_x + info->x;
+    coords.screen_y = info->hands_y + info->y;
     
-    if (is_valid_pixel_position(tex_x, tex_y, hands_x + x, hands_y + y, current_frame))
+    if (is_valid_pixel_position(coords, current_frame))
     {
-        color = get_pixel_color(current_frame, tex_x, tex_y);
+        color = get_pixel_color(current_frame, coords.tex_x, coords.tex_y);
         if ((color & 0xFF) != 0)
-            mlx_put_pixel(data->image, hands_x + x, hands_y + y, color);
+            mlx_put_pixel(data->image, coords.screen_x, coords.screen_y, color);
     }
 }
 
 void	render_first_person_zombie_hands(t_data *data)
 {
-    t_texture	*current_frame;
-    int			hands_width;
-    int			hands_height;
-    int			hands_x;
-    int			hands_y;
-    int			x;
-    int			y;
+    t_texture			*current_frame;
+    t_hands_render_info	info;
 
     current_frame = get_current_frame(&data->zombie_anim);
     if (!current_frame)
         return ;
-    calculate_hands_dimensions(&hands_width, &hands_height);
-    calculate_hands_position(hands_width, hands_height, &hands_x, &hands_y);
-    y = 0;
-    while (y < hands_height)
+    calculate_hands_dimensions(&info.hands_width, &info.hands_height);
+    calculate_hands_position(info.hands_width, info.hands_height, &info.hands_x, &info.hands_y);
+    info.y = 0;
+    while (info.y < info.hands_height)
     {
-        x = 0;
-        while (x < hands_width)
+        info.x = 0;
+        while (info.x < info.hands_width)
         {
-            render_hands_pixel(data, current_frame, x, y, hands_x, hands_y,
-                            hands_width, hands_height);
-            x++;
+            render_hands_pixel(data, current_frame, &info);
+            info.x++;
         }
-        y++;
+        info.y++;
     }
 }

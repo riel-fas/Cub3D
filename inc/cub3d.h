@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 21:44:24 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/17 08:19:42 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,25 @@ typedef struct s_animation
 	int				loop;			// 1 to loop, 0 to play once
 	char			*base_path;		// Base path for animation frames
 }	t_animation;
+
+/* Helper structures for rendering */
+typedef struct s_pixel_coords
+{
+	int	tex_x;
+	int	tex_y;
+	int	screen_x;
+	int	screen_y;
+}	t_pixel_coords;
+
+typedef struct s_hands_render_info
+{
+	int	x;
+	int	y;
+	int	hands_x;
+	int	hands_y;
+	int	hands_width;
+	int	hands_height;
+}	t_hands_render_info;
 
 /* Key state structure */
 typedef struct s_keys
