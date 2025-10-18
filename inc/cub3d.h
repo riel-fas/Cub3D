@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/17 09:23:45 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/18 16:53:57 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@
 # define WINDOW_TITLE "Cub3D"
 
 /* Game settings */
-# define FOV 1.047198		// 60 degrees in radians (PI/3)
-# define MOVE_SPEED 0.1
-# define ROTATE_SPEED 0.03
+# define FOV 1.047198
+# define MOVE_SPEED 0.15
+# define ROTATE_SPEED 0.15
 # define TEXTURE_SIZE 64
 
 /* Animation/HUD settings */
 # define ZOMBIE_HUD_SIZE 200     // Size of the zombie animation HUD
 # define ZOMBIE_HUD_X_OFFSET 20  // Distance from screen edge
 # define ZOMBIE_HUD_Y_OFFSET 20  // Distance from screen edge
-# define ZOMBIE_FRAME_RATE 0.1   // Time between frames (seconds)
+# define ZOMBIE_FRAME_RATE 0.05   // Time between frames (seconds)
 
 /* First-person hands settings */
 # define FP_HANDS_WIDTH_SCALE 0.8   // 80% of screen width (was 0.6)
