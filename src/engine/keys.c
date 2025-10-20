@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:05:02 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:41:20 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,10 @@ void	handle_rotation_keys(mlx_key_data_t keydata, t_data *data)
 		else
 			data->keys.right_pressed = 0;
 	}
+}
+
+void	handle_f_key(mlx_key_data_t keydata, t_data *data)
+{
+	if (keydata.action == MLX_PRESS)
+		toggle_door(data);
 }

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 23:33:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 18:14:39 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:58 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int	is_player_char(char c)
 	return (c == NORTH || c == SOUTH || c == EAST || c == WEST);
 }
 
-// Checks if a character is valid for the map (walls, empty, space, or player)
+// Checks if a character is valid for the map (walls, empty, space, player, or door)
 int	is_valid_char(char c)
 {
-	return (c == WALL || c == EMPTY || c == ' ' || is_player_char(c));
+	return (c == WALL || c == EMPTY || c == ' ' 
+		|| is_player_char(c) || c == DOOR);
 }
 
 // Counts players in the map and sets player position data

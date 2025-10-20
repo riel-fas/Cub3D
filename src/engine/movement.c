@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:01:30 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:41:26 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	move_player_x(t_data *data, double move_x)
 	if (map_x >= 0 && map_x < data->map_width
 		&& map_y >= 0 && map_y < data->map_height
 		&& data->map[map_y] && data->map[map_y][map_x]
-		&& data->map[map_y][map_x] != '1')
+		&& data->map[map_y][map_x] != '1'
+		&& !(data->map[map_y][map_x] == DOOR
+			&& !is_door_open(data, map_x, map_y)))
 	{
 		data->player_pos.x = new_x;
 		data->player_x = new_x;
@@ -55,7 +57,9 @@ void	move_player_y(t_data *data, double move_y)
 	if (map_x >= 0 && map_x < data->map_width
 		&& map_y >= 0 && map_y < data->map_height
 		&& data->map[map_y] && data->map[map_y][map_x]
-		&& data->map[map_y][map_x] != '1')
+		&& data->map[map_y][map_x] != '1'
+		&& !(data->map[map_y][map_x] == DOOR
+			&& !is_door_open(data, map_x, map_y)))
 	{
 		data->player_pos.y = new_y;
 		data->player_y = new_y;

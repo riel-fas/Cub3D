@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:30:40 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:52:19 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ uint32_t	get_texture_pixel(t_data *data, t_ray *ray, int y)
 	step = 1.0 * TEXTURE_SIZE / ray->line_height;
 	tex_pos = (y - WINDOW_HEIGHT / 2 + ray->line_height / 2) * step;
 	tex_y = (int)tex_pos & (TEXTURE_SIZE - 1);
+	if (ray->is_door)
+		return (get_pixel_color(&data->door_texture, ray->tex_x, tex_y));
 	return (get_pixel_color(&data->textures[ray->tex_num], ray->tex_x, tex_y));
 }
 

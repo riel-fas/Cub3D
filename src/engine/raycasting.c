@@ -32,6 +32,7 @@ void	init_ray(t_data *data, t_ray *ray, int x)
 	else
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
 	ray->hit = 0;
+	ray->is_door = 0;
 }
 
 void	calculate_wall_distance(t_ray *ray)

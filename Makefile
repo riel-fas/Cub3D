@@ -53,6 +53,7 @@ SRCS					= \
 	src/engine/textures.c \
 	src/engine/textures_utils_1.c \
 	src/engine/textures_utils_2.c \
+	src/engine/doors.c \
 	src/parsing/parse_file.c \
 	src/parsing/parse_file_content_1.c \
 	src/parsing/parse_file_content_2.c \

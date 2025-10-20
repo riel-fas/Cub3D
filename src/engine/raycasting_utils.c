@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:25:28 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/16 17:43:20 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ void	perform_dda(t_data *data, t_ray *ray)
 		else if (data->map[ray->map_y][ray->map_x] == '1')
 		{
 			ray->hit = 1;
+		}
+		else if (data->map[ray->map_y][ray->map_x] == DOOR
+			&& !is_door_open(data, ray->map_x, ray->map_y))
+		{
+			ray->hit = 1;
+			ray->is_door = 1;
 		}
 	}
 }

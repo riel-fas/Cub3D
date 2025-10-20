@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 20:51:45 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 17:50:25 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:58 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	validate_flood_fill_result(t_data *data, char **map_copy)
 		line_len = ft_strlen(data->map[y]);
 		while (x < line_len)
 		{
-			if ((data->map[y][x] == EMPTY || is_player_char(data->map[y][x]))
+			if ((data->map[y][x] == EMPTY || is_player_char(data->map[y][x])
+					|| data->map[y][x] == DOOR)
 				&& map_copy[y][x] != 'F')
 			{
 				printf("❌ Unreachable area found at (%d, %d)\n", x, y);

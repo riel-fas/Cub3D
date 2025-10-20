@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/18 17:15:04 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:58 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -76,6 +76,7 @@
 # define SOUTH 83
 # define EAST 69
 # define WEST 87
+# define DOOR 68
 
 /* Texture identifiers */
 typedef enum e_texture_type
@@ -123,6 +124,7 @@ typedef struct s_ray
 	int			tex_num;
 	double		wall_x;
 	int			tex_x;
+	int			is_door;
 }	t_ray;
 
 /* Texture structure */
@@ -190,6 +192,7 @@ typedef struct s_data
 	mlx_image_t	*image;
 	char		*texture_paths[4];
 	t_texture	textures[4];
+	t_texture	door_texture;
 	t_color		floor_color;
 	t_color		ceiling_color;
 	char		**map;
@@ -215,6 +218,7 @@ typedef struct s_data
 	int			**visited;
 	t_animation	zombie_anim;
 	double		current_time;
+	char		**door_states;
 }	t_data;
 
 /* Function prototypes */
@@ -365,6 +369,7 @@ void		handle_w_key(mlx_key_data_t keydata, t_data *data);
 void		handle_a_key(mlx_key_data_t keydata, t_data *data);
 void		handle_s_key(mlx_key_data_t keydata, t_data *data);
 void		handle_d_key(mlx_key_data_t keydata, t_data *data);
+void		handle_f_key(mlx_key_data_t keydata, t_data *data);
 void		handle_rotation_keys(mlx_key_data_t keydata, t_data *data);
 void		calculate_line_height_and_bounds(t_ray *ray);
 void		calculate_line_height_and_bounds(t_ray *ray);
@@ -436,5 +441,12 @@ void		build_frame_path(char *frame_path, char *base_path, int frame_num);
 void		add_frame_number(char *frame_path, int len, int frame_num);
 void		add_frame_prefix(char *frame_path, int len);
 void		copy_base_path(char *frame_path, char *base_path, int *len);
+
+/* Door system */
+void		init_door_states(t_data *data);
+void		free_door_states(t_data *data);
+void		toggle_door(t_data *data);
+int			is_door_open(t_data *data, int x, int y);
+int			load_door_texture(t_data *data);
 
 #endif

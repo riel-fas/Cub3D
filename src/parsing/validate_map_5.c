@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:10:00 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/09/25 18:12:14 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:24:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	check_directions_ver(t_data *data, int x, int y)
 		&& x < (int)ft_strlen(data->map[y - 1])
 		&& data->map[y - 1][x] != '0'
 		&& data->map[y - 1][x] != '1'
+		&& data->map[y - 1][x] != DOOR
 		&& !is_player_char(data->map[y - 1][x]))
 		return (FALSE);
 	else if (y + 1 < data->map_height
 		&& x < (int)ft_strlen(data->map[y + 1])
 		&& data->map[y + 1][x] != '0'
 		&& data->map[y + 1][x] != '1'
+		&& data->map[y + 1][x] != DOOR
 		&& !is_player_char(data->map[y + 1][x]))
 		return (FALSE);
 	else if (y + 1 == data->map_height || y - 1 < 0)
@@ -45,11 +47,13 @@ int	check_directions_hor(t_data *data, int x, int y)
 	line_len = ft_strlen(data->map[y]);
 	if (x - 1 >= 0 && data->map[y][x - 1] != '0'
 		&& data->map[y][x - 1] != '1'
+		&& data->map[y][x - 1] != DOOR
 		&& !is_player_char(data->map[y][x - 1]))
 		return (FALSE);
 	else if (x + 1 < line_len
 		&& data->map[y][x + 1] != '0'
 		&& data->map[y][x + 1] != '1'
+		&& data->map[y][x + 1] != DOOR
 		&& !is_player_char(data->map[y][x + 1]))
 		return (FALSE);
 	else if (x + 1 == line_len)
@@ -68,7 +72,8 @@ int	check_line(t_data *data, int y)
 	while (x < line_len)
 	{
 		if ((y == 0 || x == 0)
-			&& (data->map[y][x] == '0' || is_player_char(data->map[y][x])))
+			&& (data->map[y][x] == '0' || is_player_char(data->map[y][x])
+				|| data->map[y][x] == DOOR))
 			return (FALSE);
 		if (data->map[y][x] == '1' || data->map[y][x] == ' ')
 			x++;
