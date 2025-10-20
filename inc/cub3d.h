@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/18 16:53:57 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/18 17:15:04 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 /* Game settings */
 # define FOV 1.047198
-# define MOVE_SPEED 0.15
+# define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.15
 # define TEXTURE_SIZE 64
 
