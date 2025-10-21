@@ -85,6 +85,8 @@ int	init_game(t_data *data)
 	{
 		printf("⚠️  Warning: Door texture loading had issues\n");
 	}
+	printf("🗺️  Initializing minimap...\n");
+	init_minimap(data);
 	mlx_key_hook(data->mlx, handle_input, data);
 	mlx_cursor_hook(data->mlx, handle_mouse, data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
@@ -96,6 +98,6 @@ int	init_game(t_data *data)
 	data->keys.left_pressed = 0;
 	data->keys.right_pressed = 0;
 	data->current_time = 0.0;
-	printf("🎮 Use WASD to move, mouse to look, F to open doors, ESC to exit\n\n");
+	printf("🎮 Use WASD to move, mouse to look, F to open doors, M to toggle minimap, ESC to exit\n\n");
 	return (TRUE);
 }

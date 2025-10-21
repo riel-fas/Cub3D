@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 21:42:22 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/17 08:23:25 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:18:48 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	render_frame(t_data *data)
 {
 	cast_rays(data);
 	render_first_person_zombie_hands(data);
+	render_minimap(data);
 }

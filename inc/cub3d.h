@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 02:36:35 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/10/20 18:27:48 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:18:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-// # include "/Users/ref/MLX42/include/MLX42/MLX42.h"
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+# include "/Users/ref/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -47,6 +47,18 @@
 # define FP_HANDS_WIDTH_SCALE 0.8   // 80% of screen width (was 0.6)
 # define FP_HANDS_HEIGHT_SCALE 0.7  // 70% of screen height (was 0.5)
 # define FP_HANDS_Y_OFFSET 50       // Pixels up from bottom
+
+/* Minimap settings */
+# define MINIMAP_SIZE 200        // Size of minimap in pixels
+# define MINIMAP_TILE_SIZE 10    // Size of each map tile in minimap
+# define MINIMAP_X_OFFSET 20     // Distance from left edge
+# define MINIMAP_Y_OFFSET 20     // Distance from top edge
+# define MINIMAP_BG_COLOR 0x000000AA      // Semi-transparent black background
+# define MINIMAP_WALL_COLOR 0xFFFFFFFF    // White walls
+# define MINIMAP_FLOOR_COLOR 0x333333FF   // Dark gray floor
+# define MINIMAP_PLAYER_COLOR 0x00FF00FF  // Green player
+# define MINIMAP_RAY_COLOR 0xFFFF00AA     // Yellow rays (semi-transparent)
+# define MINIMAP_DOOR_COLOR 0x8B4513FF    // Brown doors
 
 /* Math constants */
 # define PI 3.14159265359
@@ -186,6 +198,19 @@ typedef struct s_keys
 	int	right_pressed;
 }	t_keys;
 
+/* Minimap structure */
+typedef struct s_minimap
+{
+	int			visible;
+	int			x_pos;
+	int			y_pos;
+	int			size;
+	int			tile_size;
+	int			center_x;
+	int			center_y;
+	double		scale;
+}	t_minimap;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
@@ -219,6 +244,7 @@ typedef struct s_data
 	t_animation	zombie_anim;
 	double		current_time;
 	char		**door_states;
+	t_minimap	minimap;
 }	t_data;
 
 /* Function prototypes */
@@ -448,5 +474,17 @@ void		free_door_states(t_data *data);
 void		toggle_door(t_data *data);
 int			is_door_open(t_data *data, int x, int y);
 int			load_door_texture(t_data *data);
+
+/* Minimap system */
+void		init_minimap(t_data *data);
+void		render_minimap(t_data *data);
+void		toggle_minimap(t_data *data);
+void		draw_minimap_background(t_data *data);
+void		draw_minimap_tiles(t_data *data);
+void		draw_minimap_player(t_data *data);
+void		draw_minimap_rays(t_data *data);
+void		draw_minimap_tile(t_data *data, int map_x, int map_y, uint32_t color);
+void		draw_minimap_pixel(t_data *data, int x, int y, uint32_t color);
+int			is_pixel_in_minimap(t_data *data, int x, int y);
 
 #endif
